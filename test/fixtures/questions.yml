@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  prompt: MyText
+  image: MyString
+  supplement: MyString
+  title: MyString
+  difficulty: MyString
+  topic: MyString
+  correct_response: MyString
+  incorrect_one: MyString
+  incorrect_two: MyString
+  incorrect_three: MyString
+  video_explanation: MyString
+  text_explanation: MyText
+  other_explanation: MyString
+
+two:
+  prompt: MyText
+  image: MyString
+  supplement: MyString
+  title: MyString
+  difficulty: MyString
+  topic: MyString
+  correct_response: MyString
+  incorrect_one: MyString
+  incorrect_two: MyString
+  incorrect_three: MyString
+  video_explanation: MyString
+  text_explanation: MyText
+  other_explanation: MyString

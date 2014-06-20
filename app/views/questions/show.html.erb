@@ -1,0 +1,70 @@
+<div class="alert alert-warning">
+	<div class = "row">
+        <h5 class = "text-center">
+            Choose the best option
+        </h5>
+    </div>
+</div>
+
+<div class="row">
+            
+            <div class="col-md-6">
+                <p>
+                    <%= @question.prompt %>
+                </p>
+
+                <p class = "text-center">
+
+                	<% if @question.supplement == "" %>
+                	<% else %>
+                		<img src = "<%= @question.supplement %>" class="img-rounded" alt="140x140" style="width: 140px; height: 140px;">
+                	<% end %>
+
+                	<% if @question.image == "" %>
+                	<% else %>
+                		<img src = "<%= @question.image %>" class="img-rounded" alt="140x140" style="width: 140px; height: 140px;">
+                	<% end %>
+                    
+                </p>
+
+            </div>
+            <!-- end of span6 -->
+
+
+            <div class="col-md-5 col-md-offset-1">
+
+
+                
+                
+                <%= form_tag("/answers/#{@question.id}", method: "post") do %>
+               
+
+                <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
+                <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
+                <p>
+                <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_one}") %>
+                <%= label_tag(:multiplechoice_incorrect1, "#{@question.incorrect_one}") %>
+                <p>
+                <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_two}") %>
+                <%= label_tag(:multiplechoice_incorrect2, "#{@question.incorrect_two}") %>
+                <p>
+                <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_three}") %>
+                <%= label_tag(:multiplechoice_incorrect3, "#{@question.incorrect_three}") %>
+                <p>
+                    
+                <%= submit_tag("Submit", class: "btn btn-success") %>
+
+            <% end %> 
+            </div>
+            <!-- end of span5 answer choices -->
+
+</div>
+<!-- end of row -->
+
+        <div class = "row text-right" style = "margin-top:30px";>
+            <div class="col-md-12">
+                <!-- <button type="button" class="btn btn-success">Submit</button> -->
+                <!-- <button type="button" class="btn btn-success" disabled="disabled">Submit</button> -->
+                <a href = "/answers/<%= @question.id %>">Answer</a>
+            </div>
+        </div>

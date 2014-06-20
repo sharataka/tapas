@@ -1,0 +1,169 @@
+<div class="alert alert-warning">
+	<div class = "row">
+        <h5 class = "text-center">
+            Choose the best option
+        </h5>
+    </div>
+</div>
+
+<div class="row">
+            
+            <div class="col-md-6">
+                <p>
+                    <%= @question.prompt %>
+                </p>
+
+                <p class = "text-center">
+
+                	<% if @question.supplement == "" %>
+                	<% else %>
+                		<img src = "<%= @question.supplement %>" class="img-rounded" alt="140x140" style="width: 140px; height: 140px;">
+                	<% end %>
+
+                	<% if @question.image == "" %>
+                	<% else %>
+                		<img src = "<%= @question.image %>" class="img-rounded" alt="140x140" style="width: 140px; height: 140px;">
+                	<% end %>
+                    
+                </p>
+
+            </div>
+            <!-- end of span6 -->
+
+
+            <div class="col-md-5 col-md-offset-1">
+
+                <p > 
+                    <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
+                    <span class="glyphicon glyphicon-ok" style = "color: #5cb85c;"></span>
+                    <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
+                </p>
+                <p>
+                
+                <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_one}") %>
+                <% if @student_response == @question.incorrect_one %>
+                    <span class="glyphicon glyphicon-remove" style = "color: #d9534f;"></span>
+                <% end %>
+                <%= label_tag(:multiplechoice_incorrect1, "#{@question.incorrect_one}") %>
+                
+                <p>
+
+                <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_two}") %>
+                <% if @student_response == @question.incorrect_two %>
+                    <span class="glyphicon glyphicon-remove" style = "color: #d9534f;"></span>
+                <% end %>
+                <%= label_tag(:multiplechoice_incorrect2, "#{@question.incorrect_two}") %>
+                
+                <p>
+                
+                <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_three}") %>
+                <% if @student_response == @question.incorrect_three %>
+                    <span class="glyphicon glyphicon-remove" style = "color: #d9534f;"></span>
+                <% end %>
+                <%= label_tag(:multiplechoice_incorrect3, "#{@question.incorrect_three}") %>
+                
+                <p>
+
+            </div>
+            <!-- end of span5 answer choices -->
+
+</div>
+<!-- end of row -->
+
+        <div class = "row text-right" style = "margin-top:30px";>
+            <div class="col-md-12">
+                <button type="button" class="btn btn-success">Next question</button>
+            </div>
+        </div>
+
+<div class="alert alert-info" style = "margin-top:30px";>
+    <div class = "row">
+        
+        <div class="col-md-4 text-center">                    
+            <strong>
+                Title
+            </strong>
+            
+            <p>
+                <%= @question.title %>
+            </p>
+        </div>
+
+        <div class="col-md-4 text-center">                    
+            <strong>
+                Your result
+            </strong>
+            
+            <p>
+                <% if @result == "Correct" %>
+                    <p style = "color: #5cb85c;"> 
+                        <strong><%= @result %></strong>
+                    </p>
+                <% else %>
+                    <p style = "color: #d9534f;"> 
+                        <span class="glyphicon glyphicon-remove"></span>
+                        &nbsp; <strong><%= @result %></strong>
+                    </p>
+                <% end %>
+                
+
+            </p>
+        </div>
+
+        <div class="col-md-4 text-center">                    
+            <strong>
+                Difficulty
+            </strong>
+            
+            <p>
+                <%= @question.difficulty %>
+            </p>
+        </div>
+
+    </div>
+</div>
+<!-- end of question desc well -->
+
+<div class = "row" >
+    <div class="col-md-6">
+        <h4>Video Explanation</h4>
+        <iframe width="560" height="315" src="http://www.youtube.com/embed/<%= @question.video_explanation %>" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <div class="col-md-6">
+        <h4>Related Lesson(s)</h4>
+
+        <div class="media">
+          <a class="pull-left thumbnail" href="#">
+            <img src="http://podcast.iu.edu/upload/IUSEUITS/images/300x300.gif" style="width: 100px; height: 100px;">
+          </a>
+          <div class="media-body">
+            <h4 class="media-heading">Video title</h4>
+            <a href = "#">
+                This is the description for this video
+            </a>
+          </div>
+        </div>
+
+    </div>
+</div>
+<!-- end of row -->
+
+
+        <div class = "row">
+            <div class="col-md-12">
+                <h4>Text Explanation</h4>
+                <img src = "http://podcast.iu.edu/upload/IUSEUITS/images/300x300.gif" class="img-rounded" alt="140x140" style="width: 140px; height: 140px;">
+                
+            </div>
+        </div>
+
+         <div class = "row text-right" style = "margin-top:30px";>
+            <div class="col-md-12">
+                <button type="button" class="btn btn-success">Next question</button>
+            </div>
+        </div>
+
+        <div class = "row">
+             &nbsp;
+        </div>

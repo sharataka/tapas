@@ -1,0 +1,66 @@
+<%= form_for(@question) do |f| %>
+<p>
+    <%= f.label :prompt %><br />
+    <%= f.text_area :prompt %>
+</p>
+
+<p>
+    <%= f.label :supplement %><br />
+    <%= f.text_field :supplement %>
+</p>
+
+<p>
+    <%= f.label :correct_response %><br />
+    <%= f.text_field :correct_response %>
+</p>
+
+<p>
+    <%= f.label :incorrect_one %><br />
+    <%= f.text_field :incorrect_one %>
+</p>
+
+<p>
+    <%= f.label :incorrect_two %><br />
+    <%= f.text_field :incorrect_two %>
+</p>
+
+<p>
+    <%= f.label :incorrect_three %><br />
+    <%= f.text_field :incorrect_three %>
+</p>
+
+<p>
+    <%= f.label :image %><br />
+    <%= f.text_field :image %>
+</p>
+
+
+
+<p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+</p>
+
+<p>
+    <%= f.label :difficulty %><br />
+    <%= f.text_field :difficulty %>
+</p>
+
+<p>
+    <%= f.label :video_explanation %><br />
+    <%= f.text_field :video_explanation %>
+</p>
+
+<p>
+    <%= f.label :text_explanation %><br />
+    <%= f.text_area :text_explanation %>
+</p>
+
+<p>
+    <%= f.label :other_explanation %><br />
+    <%= f.text_field :other_explanation %>
+</p>
+
+<%= f.submit %>
+
+<% end %>

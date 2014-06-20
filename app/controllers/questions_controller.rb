@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
 	def index
 		@questions = Question.all
+		puts @questions
 	end
 
 	def new
@@ -56,6 +57,12 @@ class QuestionsController < ApplicationController
 		end
 
 		# Save result to answers table (user_id, question_id, result)
+		# Handle if the user has already answered the question (first_response?)
+		answer = Answer.new
+		answer.question_id = @question.id
+		answer.user_id = current_user.id
+		answer.result = @result
+		answer.save
 
 		# Pull next question to answer
 

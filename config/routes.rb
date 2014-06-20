@@ -1,8 +1,13 @@
 Tapas::Application.routes.draw do
 
+
   resources :questions
 
+
+
   root :to => "questions#index"
+
+  devise_for :users
   
   match "/answers/:question_id" => "questions#answer"
 

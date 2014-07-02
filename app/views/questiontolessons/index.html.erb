@@ -1,0 +1,22 @@
+<h3>Question to Lesson Association</h3>
+
+<table class="table">
+	<thead>
+		<th>Question_id</th>
+		<th>Lesson_id</th>
+		<th>Edit</th>
+		<th>Delete</th>
+	</thead>
+
+	<tbody>
+		<% @questiontolessons.each do |questiontolesson| %>
+		<tr>
+			<td><%= questiontolesson.question_id %></td>
+			<td><%= questiontolesson.lesson_id %> </td>
+			<td><a href = "/questiontolessons/<%= questiontolesson.id %>/edit">Edit</a></td>
+			<td><a data-confirm="Are you sure?" data-method="delete" href="/questiontolessons/<%= questiontolesson.id%>" rel="nofollow">Destroy</a></td>
+		</tr>
+		<% end %>
+	</tbody>
+
+</table>

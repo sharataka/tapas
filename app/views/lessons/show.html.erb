@@ -1,0 +1,106 @@
+<div class = "row">
+    <div class="col-md-12">
+        <h3>
+            <%= @lesson.title %>
+        </h3>
+    </div>
+</div>
+
+
+ <div class = "row">
+                <div class="col-md-8">
+
+                <hr>
+                <p class = "text-center">
+                    <iframe width="560" height="315" src="http://www.youtube.com/embed/<%= @lesson.url %>" frameborder="0" allowfullscreen></iframe>
+                </p>
+
+                <br>
+
+
+                <!--
+                <h4>Your Notes
+                    <small>These notes are private; other students can't see them</small>
+                </h4>
+                
+                <textarea class="form-control" rows="3"></textarea>
+                <br><button type="button" class="btn btn-success">Save Note</button>
+				-->
+                <br><br>
+
+                <% if @lesson.related != nil %>
+                <h4>Related Blog Posts and Resources</h4>
+                <%= @lesson.related.html_safe %>
+                <% end %>
+            </div>
+            <!-- end of span8 video + note column-->
+
+
+            <div class="col-md-4">
+                <!--
+                <p class = "text-center">
+                
+                    <button type="button" class="btn btn-success" id = "understand_button" onclick="myFunc(<%= @lesson.id %>)" >I Understand this Lesson</button>
+                </p>
+                <hr>
+                -->
+                
+                
+
+
+                <% if @no_next_lesson == true %>
+                <% else %>
+                <h4>
+                    Next lesson
+                </h4>
+
+                <div class="media">
+                  <a class="pull-left thumbnail" href="/lessons/<%= @next_lesson.id %>">
+                    <img src="<%= @next_lesson.thumbnail %>" style="width: 80px; height: 60px;">
+                  </a>
+                  <div class="media-body">
+                    <h5 class="media-heading"><%= @next_lesson.title %> &nbsp; <span class="glyphicon glyphicon-ok"></h5>
+                    <a href = "/lessons/<%= @next_lesson.id %>">
+                        <p><%= @next_lesson.length %></p>
+                    </a>
+                  </div>
+                </div>
+                <% end %>
+
+                <hr>
+
+                <h4>
+                    Other lessons in <%= @lesson.topic %>
+                </h4>
+				
+				<!-- Don't show the same lesson under related lessons -->                
+                <% @related_lessons.each do |lesson| %>
+
+                <% if lesson.id == @lesson.id %>
+	                <% else %>
+		                <div class="media">
+		                  <a class="pull-left thumbnail" href="/lessons/<%= lesson.id %>">
+		                    <img src="<%= lesson.thumbnail %>" style="width: 80px; height: 60px;">
+		                  </a>
+		                  <div class="media-body">
+		                    <h5 class="media-heading"><%= lesson.title %></h5>
+		                    <a href = "/lessons/<%= lesson.id %>">
+		                        <p><%= lesson.length %></p>
+		                    </a>
+		                  </div>
+		                </div>
+	                <% end %>
+
+                <% end %>
+                <!-- End of related lessons module -->
+
+
+            </div>
+            <!-- end of span4 suggested lessons -->
+
+        </div>
+        <!-- end of row -->
+
+        <div class = "row">
+            &nbsp;
+        </div>

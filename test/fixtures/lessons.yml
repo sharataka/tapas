@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  length: MyString
+  url: MyString
+  platform: MyString
+  thumbnail: MyString
+  nextlesson: MyString
+  topic: MyString
+  order: 1
+
+two:
+  title: MyString
+  length: MyString
+  url: MyString
+  platform: MyString
+  thumbnail: MyString
+  nextlesson: MyString
+  topic: MyString
+  order: 1

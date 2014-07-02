@@ -1,0 +1,51 @@
+<h3>
+	Review
+</h3>
+
+<h4>
+	You answered <%= @correct %>/<%= @total %> questions correct (<%= @percent_correct %>%).
+</h4>
+<p>
+<table class="table">
+	<thead>
+		<th>Result</th>
+		<th>Title</th>
+		<th>Topic</th>
+		<th>Difficulty</th>
+		<th>Date</th>
+	</thead>
+
+	<tbody>
+
+		<% @answers.each do |answer| %>
+			
+			<!-- Format right color for row -->
+			<% if answer.result == "Correct" %>
+				<tr class = "success">
+			<% else %>
+				<tr class = "danger">
+			<% end %>
+
+			<!-- Correct/incorrect -->
+			<td>
+				<% if answer.result == "Correct" %>
+					<span class="glyphicon glyphicon-ok" style = "color: #5cb85c;">
+				<% else %>
+					<span class="glyphicon glyphicon-remove" style = "color: #d9534f;">
+				<% end %>
+				<%= answer.result %></span>
+			</td>
+			<td>
+				<a href = "/review/session/<%= answer.practicesession_id %>/answers/<%= answer.question_id %>">
+					<%= answer.title %>
+				</a>
+			</td>
+			<td><%= answer.topic %></td>
+			<td><%= answer.difficulty %></td>
+			<td><%= answer.updated_at.strftime("%m/%d/%Y") %></td>
+		</tr>
+		<% end %>
+
+	</tbody>
+
+</table>

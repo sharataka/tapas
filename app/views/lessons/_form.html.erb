@@ -1,0 +1,55 @@
+<%= form_for(@lesson) do |f| %>
+
+
+<p>
+    <%= f.label :order %><br />
+    <%= f.text_field :order %>
+</p>
+
+
+<p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+</p>
+
+<p>
+    <%= f.label :topic %><br />
+    <%= f.text_field :topic %>
+</p>
+
+<p>
+    <%= f.label :platform %><br />
+    <%= f.text_field :platform %>
+</p>
+
+<p>
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
+</p>
+
+<p>
+    <%= f.label :length %><br />
+    <%= f.text_field :length %>
+</p>
+
+<p>
+    <%= f.label :nextlesson %><br />
+    <%= f.text_field :nextlesson %>
+</p>
+
+<p>
+    <%= f.label :thumbnail %><br />
+    <%= f.text_field :thumbnail %>
+</p>
+
+<p>
+    <%= f.label :related %><br />
+    <%= f.text_area :related %>
+</p>
+
+
+
+
+<%= f.submit %>
+
+<% end %>

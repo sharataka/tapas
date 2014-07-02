@@ -2,14 +2,29 @@ Tapas::Application.routes.draw do
 
 
   resources :questions
+  resources :lessons
+  resources :questiontolessons
+  resources :userstats
 
 
-
-  root :to => "questions#index"
+  root :to => "questions#landing_page"
+  match "/dashboard" => "questions#index"
 
   devise_for :users
+  match "/review/session/:session_id/answers/:question_id" => "questions#review_answer"
+  match "/review/all" => "questions#review_all"
   
-  match "/answers/:question_id" => "questions#answer"
+  match "/session/:session_id/question/:question_id" => "questions#session_question"
+  match "/session/:session_id/answers/:question_id/order/:order" => "questions#answer"
+
+  match "/admin" => "questions#admin"
+
+  match "/custom_practice" => "questions#custom_practice"
+  match "/custom_practice/:error" => "questions#custom_practice"
+  match "/decide_start_session" => "questions#decide_start_session"
+
+  match "/review/:session_id" => "questions#review"
+  match "/review/session/:session_id/answers/:question_id" => "questions#review_answer"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

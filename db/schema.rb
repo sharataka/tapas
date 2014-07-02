@@ -11,14 +11,44 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140620175816) do
+ActiveRecord::Schema.define(:version => 20140702034628) do
 
   create_table "answers", :force => true do |t|
     t.integer  "user_id"
     t.integer  "question_id"
     t.string   "result"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "topic"
+    t.integer  "practicesession_id"
+    t.string   "title"
+    t.string   "difficulty"
+    t.string   "studentanswer"
+  end
+
+  create_table "lessons", :force => true do |t|
+    t.string   "title"
+    t.string   "length"
+    t.string   "url"
+    t.string   "platform"
+    t.string   "thumbnail"
+    t.string   "nextlesson"
+    t.string   "topic"
+    t.integer  "order"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.text     "related"
+  end
+
+  create_table "practice_sessions", :force => true do |t|
+    t.string   "question_pool"
+    t.string   "subjects"
+    t.integer  "number_of_questions"
+    t.integer  "number_correct"
+    t.integer  "number_incorrect"
+    t.integer  "user_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "questions", :force => true do |t|
@@ -39,6 +69,13 @@ ActiveRecord::Schema.define(:version => 20140620175816) do
     t.datetime "updated_at",        :null => false
   end
 
+  create_table "questiontolessons", :force => true do |t|
+    t.integer  "lesson_id"
+    t.integer  "question_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -56,5 +93,12 @@ ActiveRecord::Schema.define(:version => 20140620175816) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "userstats", :force => true do |t|
+    t.string   "permissions"
+    t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
 end

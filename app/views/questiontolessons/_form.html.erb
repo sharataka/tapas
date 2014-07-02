@@ -1,0 +1,15 @@
+<%= form_for(@questiontolesson) do |f| %>
+
+<p>
+    <%= f.label :question_id %><br />
+    <%= f.text_field :question_id %>
+</p>
+
+<p>
+    <%= f.label :lesson_id %><br />
+    <%= f.text_field :lesson_id %>
+</p>
+
+<%= f.submit %>
+
+<% end %>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  question_pool: MyString
+  subjects: MyString
+  number_of_questions: 1
+  number_correct: 1
+  number_incorrect: 1
+  user_id: 1
+
+two:
+  question_pool: MyString
+  subjects: MyString
+  number_of_questions: 1
+  number_correct: 1
+  number_incorrect: 1
+  user_id: 1

@@ -1,0 +1,124 @@
+<div class = "row">
+    <div class="col-md-12">
+        
+        <!-- Error message -->
+        <% if @error_message == "yes" %>
+            <div class="well">
+                <center>
+                    <%= @message %>   
+                </center>
+            </div>
+        <% end %>
+
+        <!-- Header -->
+        <h3>
+            Start a practice session
+        </h3>
+
+    </div>
+</div>
+
+<p>
+
+<form action="/decide_start_session" method="get">
+<div class="row">
+ 
+    <div class="col-md-2">
+        <h4>
+            Subjects
+        </h4>
+    </div>
+
+    <div class="col-md-2">
+	    <p>
+	    	<label>
+	    		<input type="checkbox" name = "subject[]" value = "NetPresentValue" checked> Net Present Value
+	    	</label>
+		</p>
+
+	    <p>
+	    	<label>
+	    		<input type="checkbox" name = "subject[]" value = "FamaFrench" checked> Fama French	
+	    	</label>
+		</p>
+	</div>
+
+	<!-- Second column  -->
+	<div class="col-md-2">
+    <p>
+    	<label>
+    		<input type="checkbox" name = "subject[]" value = "discountRate" checked> Discount rate
+    	</label>
+	</p>
+
+	<p>
+    	<label>
+    		<input type="checkbox" name = "subject[]" value = "gordonGrowth" checked> Gordon Growth
+    	</label>
+	</p>
+	</div>
+
+	</div>
+
+<p>
+
+<div class="row">
+ 
+    <div class="col-md-2">
+        <h4>
+            Question pool
+        </h4>
+    </div>
+
+    <!-- First column -->
+    <div class="col-md-2">
+	    <p>
+    	<label>
+    		<input type="radio" name = "questionpool" value = "Unanswered" checked> Unanswered
+    	</label>
+		</p>
+
+	    <p>
+    	<label>
+    		<input type="radio" name = "questionpool" value = "Incorrect"> Incorrect
+    	</label>
+		</p>
+	</div>
+
+
+</div>
+
+
+<p>
+
+<div class="row">
+ 
+    <div class="col-md-2">
+        <h4>
+            Number of questions
+        </h4>
+    </div>
+
+    <!-- First column -->
+    <div class="col-md-2">
+    	<select class="form-control" name = "numberQuestions">
+		  <option value = "all">No limit</option>
+		  <option value = "5">5 questions</option>
+		  <option value = "10">10 questions</option>
+		  <option value = "20">20 questions</option>
+		  <option value = "30">30 questions</option>
+		</select>
+	</div>
+
+</div>
+
+<div class = "row">
+	<div class = "col-md-2 col-md-offset-2">
+		<%= submit_tag("Start session", class: "btn btn-success") %>
+	</div>
+</div>
+
+</form>
+
+<!-- end of row -->
+

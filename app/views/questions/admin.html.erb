@@ -1,0 +1,32 @@
+<%= link_to "Create a new question", new_question_path %>
+<p>
+
+<%= link_to "Create a new lesson", new_lesson_path %>
+<p>
+
+<%= link_to "Create a new association", new_questiontolesson_path %>
+<p>
+
+<%= link_to "Create a new permission", new_userstat_path %>
+<p>
+
+<h3>Questions</h3>
+<% @questions.each do |question| %>
+
+	<p>
+		<%= link_to 'Edit', edit_question_path(question) %>
+		 Question <%= question.id %> - <%= question.title %>
+	</p>
+
+<% end %>
+
+<h3>Lessons</h3>
+
+<% @lessons.each do |lesson| %>
+
+	<p>
+		<%= link_to 'Edit', edit_lesson_path(lesson) %>
+		 Lesson <%= lesson.id %> - <%= lesson.title %>
+	</p>
+
+<% end %>

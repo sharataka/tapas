@@ -33,60 +33,35 @@
 
             <div class="col-md-5 col-md-offset-1">
 
-                <% if @order == 1 %> 
-                    <p >
-                        <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
-                        <span class="glyphicon glyphicon-ok" style = "color: #5cb85c;"></span>
-                        <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
-                    </p>
-                <% end %>
+                <p > 
+                    <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
+                    <span class="glyphicon glyphicon-ok" style = "color: #5cb85c;"></span>
+                    <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
+                </p>
                 <p>
                 
                 <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_one}") %>
-                <% if @student_response == @question.incorrect_one %>
+                <% if @answer.studentanswer == @question.incorrect_one %>
                     <span class="glyphicon glyphicon-remove" style = "color: #d9534f;"></span>
                 <% end %>
                 <%= label_tag(:multiplechoice_incorrect1, "#{@question.incorrect_one}") %>
                 
-                <% if @order == 2 %> 
-                    <p >
-                        <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
-                        <span class="glyphicon glyphicon-ok" style = "color: #5cb85c;"></span>
-                        <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
-                    </p>
-                <% end %>
                 <p>
 
                 <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_two}") %>
-                <% if @student_response == @question.incorrect_two %>
+                <% if @answer.studentanswer == @question.incorrect_two %>
                     <span class="glyphicon glyphicon-remove" style = "color: #d9534f;"></span>
                 <% end %>
                 <%= label_tag(:multiplechoice_incorrect2, "#{@question.incorrect_two}") %>
                 
-                <% if @order == 3 %> 
-                    <p >
-                        <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
-                        <span class="glyphicon glyphicon-ok" style = "color: #5cb85c;"></span>
-                        <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
-                    </p>
-                <% end %>
-
                 <p>
                 
                 <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_three}") %>
-                <% if @student_response == @question.incorrect_three %>
+                <% if @answer.studentanswer == @question.incorrect_three %>
                     <span class="glyphicon glyphicon-remove" style = "color: #d9534f;"></span>
                 <% end %>
                 <%= label_tag(:multiplechoice_incorrect3, "#{@question.incorrect_three}") %>
                 
-                <% if @order == 4 %>
-                    <p >
-                        <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
-                        <span class="glyphicon glyphicon-ok" style = "color: #5cb85c;"></span>
-                        <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
-                    </p>
-                <% end %>
-
                 <p>
 
             </div>
@@ -96,17 +71,10 @@
 <!-- end of row -->
 
         <div class = "row text-right" style = "margin-top:30px";>
-            <div class="col-md-12">
-                
-                <% if @is_there_next_question == "No" %>
+            <div class="col-md-12">    
                 <a href = "/review/<%= @session %>" type="button" class="btn btn-success">
-                    End session and see results
-                </a>                
-                <% else %>
-                <a href = "/session/<%= @session %>/question/<%= @next_question %>" type="button" class="btn btn-success">
-                    Next question
-                </a>
-                <% end %>
+                    Review session
+				</a>
             </div>
         </div>
 
@@ -167,23 +135,17 @@
     <div class="col-md-6">
         <h4>Related Lesson(s)</h4>
 
-                <% @lessons.each do |lesson| %>
-                    <p>
-                   <div class="media">
-                  <a class="pull-left thumbnail" href="/lessons/<%= lesson.id %>">
-                    <img src="<%= lesson.thumbnail %>" style="width: 80px; height: 60px;">
-                  </a>
-                  <div class="media-body">
-                    <h5 class="media-heading">
-                        <a href = "/lessons/<%= lesson.id %>">
-                            <%= lesson.title %>
-                        </a>
-                             &nbsp; <span class="glyphicon glyphicon-ok"></h5>
-                        <p><h6><%= lesson.length %></h6></p>
-                  </div>
-                </div>
-                </p>
-                <% end %>
+        <div class="media">
+          <a class="pull-left thumbnail" href="#">
+            <img src="http://podcast.iu.edu/upload/IUSEUITS/images/300x300.gif" style="width: 100px; height: 100px;">
+          </a>
+          <div class="media-body">
+            <h4 class="media-heading">Video title</h4>
+            <a href = "#">
+                This is the description for this video
+            </a>
+          </div>
+        </div>
 
     </div>
 </div>
@@ -200,15 +162,10 @@
 
          <div class = "row text-right" style = "margin-top:30px";>
             <div class="col-md-12">
-                <% if @is_there_next_question == "No" %>
-                <a href = "/<%= @session %>" type="button" class="btn btn-success">
-                    End session and see results
-                </a>                
-                <% else %>
-                <a href = "/session/<%= @session %>/question/<%= @next_question %>" type="button" class="btn btn-success">
-                    Next question
-                </a>
-                <% end %>
+                <a href = "/review/<%= @session %>" type="button" class="btn btn-success">
+                    Review session
+				</a>
+                	
             </div>
         </div>
 

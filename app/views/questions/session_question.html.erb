@@ -37,21 +37,43 @@
 
                 
                 
-                <%= form_tag("/answers/#{@question.id}", method: "post") do %>
+                <%= form_tag("/session/#{@session}/answers/#{@question.id}/order/#{@order}", method: "post") do %>
                
-
-                <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
-                <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
-                <p>
+                <% if @order == 1 %>
+                    <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
+                    <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
+                    <p>
+                <% end %>
+                
                 <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_one}") %>
                 <%= label_tag(:multiplechoice_incorrect1, "#{@question.incorrect_one}") %>
                 <p>
+
+                <% if @order == 2 %>
+                    <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
+                    <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
+                    <p>
+                <% end %>
+
                 <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_two}") %>
                 <%= label_tag(:multiplechoice_incorrect2, "#{@question.incorrect_two}") %>
                 <p>
+
+                <% if @order == 3 %>
+                    <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
+                    <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
+                    <p>
+                <% end %>
+
                 <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_three}") %>
                 <%= label_tag(:multiplechoice_incorrect3, "#{@question.incorrect_three}") %>
                 <p>
+
+                <% if @order == 4 %>
+                    <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
+                    <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
+                    <p>
+                <% end %>
                     
                 <%= submit_tag("Submit", class: "btn btn-success") %>
 

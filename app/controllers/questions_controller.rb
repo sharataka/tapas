@@ -1,10 +1,12 @@
 class QuestionsController < ApplicationController
 	before_filter :user_signed_in, :except => [:landing_page]
+	before_filter :is_admin, :only => [:new, :create, :edit, :update, :admin]
 
 	def landing_page
 		if current_user
 			redirect_to "/dashboard"
 		end
+
 	end
 
 	def admin
@@ -88,7 +90,7 @@ class QuestionsController < ApplicationController
 	end
 
 	def new
-			@question = Question.new
+		@question = Question.new
 	end
 
 	def create
@@ -229,13 +231,24 @@ class QuestionsController < ApplicationController
 		end
 		@total = @answers.count
 		@percent_correct =  ((@correct.to_f/@total.to_f) * 100).to_int
-
 	end
 
 	private
 	def user_signed_in
 		if !current_user
 			redirect_to new_user_session_path
+		end
+	end
+
+	def is_admin
+		user = Userstat.where(:user_id => current_user.id).first
+		if user == nil
+			redirect_to root_path
+		elsif user.permissions == "admin"
+			# Do nothing since the user is an admin
+		else
+			user.permissions != "admin"
+			redirect_to root_path
 		end
 	end
 

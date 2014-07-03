@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Tapas</title>
+	<title>  
+    	Tapas <%= yield(:title) %>
+  	</title>
 	<%= stylesheet_link_tag    "application", :media => "all" %>
 	<%= javascript_include_tag "application" %>
 	<%= csrf_meta_tags %>
@@ -35,11 +37,11 @@
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li><a href="/admin">Admin</a></li>
-						<li class="active"><a href="/">Dashboard</a></li>
-						<li><a href="/lessons">Lessons</a></li>
-						<li><a href="/custom_practice">Practice</a></li>
-						<li><a href="/review/all">Review</a></li>
+						<li <%= yield(:admin_active) %>><a href="/admin">Admin</a></li>
+						<li <%= yield(:dashboard_active) %>><a href="/">Dashboard</a></li>
+						<li <%= yield(:lessons_active) %>><a href="/lessons">Lessons</a></li>
+						<li <%= yield(:practice_active) %>><a href="/custom_practice">Practice</a></li>
+						<li <%= yield(:review_active) %>><a href="/review/all">Review</a></li>
 					</ul>
 
 					<ul class="nav navbar-nav navbar-right">

@@ -1,35 +1,70 @@
 <% content_for :title do %> - Admin <% end %>
 <% content_for :admin_active do %> class = "active" <% end %>
 
-<%= link_to "Create a new question", new_question_path %>
-<p>
 
-<%= link_to "Create a new lesson", new_lesson_path %>
-<p>
-
-<%= link_to "Create a new association", new_questiontolesson_path %>
+<%= link_to "Create a new question-to-lesson association", new_questiontolesson_path %>
 <p>
 
 <%= link_to "Create a new permission", new_userstat_path %>
 <p>
 
-<h3>Questions</h3>
-<% @questions.each do |question| %>
+<h3>Questions <small><%= link_to "Create a new question", new_question_path %></small></h3> 
+
+<table class="table">
+	<thead>
+		<th>Question ID</th>
+		<th>Question Title</th>
+		<th>Edit Question</th>
+	</thead>
+
+	<tbody>
+		<% @questions.each do |question| %>
+		<tr>
+			<td><%= question.id %></td>
+			<td><%= question.title %></td>
+			<td><%= link_to 'Edit', edit_question_path(question) %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+
+<h3>Lessons <small><%= link_to "Create a new lesson", new_lesson_path %></small></h3>
+
+
+<table class="table">
+	<thead>
+		<th>Lesson ID</th>
+		<th>Lesson Order</th>
+		<th>Lesson Title</th>
+		<th>Edit Lesson</th>
+	</thead>
+
+	<tbody>
+		<% @lessons.each do |lesson| %>
+		<tr>
+			<td><%= lesson.id %></td>
+			<td><%= lesson.order %></td>
+			<td><%= lesson.title %></td>
+			<td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
+		</tr>
+		<% end %>
+	</tbody>
+
+</table>
+
+
+
+<!-- OLD TOPICS CODE, ABANDONED -->
+<!-- 
+<h3>Topics <small><%= link_to "Create a new topic", new_topic_path %></small></h3>
+
+<% @topics.each do |topic| %>
 
 	<p>
-		<%= link_to 'Edit', edit_question_path(question) %>
-		 Question <%= question.id %> - <%= question.title %>
+		<%= link_to 'Edit', edit_topic_path(topic) %>
+		 Topic ID <%= topic.id %> - <%= topic.name %>
 	</p>
 
-<% end %>
-
-<h3>Lessons</h3>
-
-<% @lessons.each do |lesson| %>
-
-	<p>
-		<%= link_to 'Edit', edit_lesson_path(lesson) %>
-		 Lesson <%= lesson.id %> - <%= lesson.title %>
-	</p>
-
-<% end %>
+<% end %> -->
+<!-- END OF TOPICS CODE -->

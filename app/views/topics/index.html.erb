@@ -1,0 +1,34 @@
+ <%= link_to "Add new topic", new_topic_path %>
+ <br><br>
+
+
+	<table class="table">
+	<thead>
+		<th>Order</th>
+		<th>Topic Name</th>
+		<th>Edit</th>
+	</thead>
+
+	<tbody>
+
+		<% @topics.each do |topic| %>
+			
+			<tr>
+				<td>
+					<%= topic.order %>
+				</td>
+				
+				<td>
+					<%= topic.name %>
+				</td>
+
+				<td>
+					  <%= link_to "Edit topic", edit_topic_path(topic) %>
+				</td>
+
+			</tr>
+		<% end %>
+
+	</tbody>
+
+</table>

@@ -37,11 +37,15 @@
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li <%= yield(:admin_active) %>><a href="/admin">Admin</a></li>
-						<li <%= yield(:dashboard_active) %>><a href="/">Dashboard</a></li>
-						<li <%= yield(:lessons_active) %>><a href="/lessons">Lessons</a></li>
-						<li <%= yield(:practice_active) %>><a href="/custom_practice">Practice</a></li>
-						<li <%= yield(:review_active) %>><a href="/review/all">Review</a></li>
+						<% if current_user %>
+							<li <%= yield(:admin_active) %>><a href="/admin">Admin</a></li>
+							<li <%= yield(:dashboard_active) %>><a href="/">Dashboard</a></li>
+							<li <%= yield(:lessons_active) %>><a href="/lessons">Lessons</a></li>
+							<li <%= yield(:practice_active) %>><a href="/custom_practice">Practice</a></li>
+							<li <%= yield(:review_active) %>><a href="/review/all">Review</a></li>
+						<% else %>
+							
+						<% end %>
 					</ul>
 
 					<ul class="nav navbar-nav navbar-right">

@@ -3,6 +3,7 @@ class LessonsController < ApplicationController
 
 	def index
 		@lessons = Lesson.all
+		@topics = Topic.all
 	end
 
 	def new

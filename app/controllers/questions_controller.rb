@@ -15,6 +15,7 @@ class QuestionsController < ApplicationController
 		else
 			@questions = Question.all
 			@lessons = Lesson.all
+			@topics = Topic.all
 		end
 	end
 

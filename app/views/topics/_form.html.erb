@@ -1,0 +1,22 @@
+<%= form_for(@topic) do |f| %>
+
+
+<p>
+    <%= f.label :order %><br />
+    <%= f.text_field :order %>
+</p>
+
+<p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+</p>
+
+<p>
+    <%= f.label :lesson_id %><br />
+    <%= f.text_field :lesson_id %>
+</p>
+
+
+<%= f.submit %>
+
+<% end %>

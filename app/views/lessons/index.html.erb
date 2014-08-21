@@ -9,61 +9,49 @@
         </div>
     </div>
 
+<div class = "row">
+    <center>
+        <div class="col-md-6 col-md-offset-3">
 
-<div class="row">
+                <% @lessons.each do |lesson| %>
+               
+         
+                    <div class="media ">
+                        
+                        <!-- thumbnail -->
+                        <a class="pull-left thumbnail" href="/lessons/<%= lesson.id %>">
+                            <img src="<%= lesson.thumbnail %>" style="width: 80px; height: 60px;">
+                        </a>
+                        <!-- end of thumbnail -->
+
+                        <div class="media-body">
+                            
+                            <h3 class="media-heading">
+                                <a href = "/lessons/<%= lesson.id %>">
+                                    <%= lesson.title %>
+                                </a>    
+                                 &nbsp; <span class="glyphicon glyphicon-ok">
+                             </h3>
+                            
+                            <p>
+                                <h3>
+                                    <small><%= lesson.length %></small>
+                                </h3>
+                            </p>
+                        
+                        </div>
+                        <!-- end of div media-body -->
+                    
+                    </div>
+                    <!-- end of div media -->
+
+                
+                <% end %>
+
             
-            <div class="col-md-6">
-                <h4>
-                    Intro <hr>
-                </h4>
-
-                <% @lessons.each do |lesson| %>
-	                <p>
-                   <div class="media">
-                  <a class="pull-left thumbnail" href="/lessons/<%= lesson.id %>">
-                    <img src="<%= lesson.thumbnail %>" style="width: 80px; height: 60px;">
-                  </a>
-                  <div class="media-body">
-                    <h5 class="media-heading">
-                    	<a href = "/lessons/<%= lesson.id %>">
-                    		<%= lesson.title %>
-                    	</a>
-                    		 &nbsp; <span class="glyphicon glyphicon-ok"></h5>
-                        <p><h6><%= lesson.length %></h6></p>
-                  </div>
-                </div>
-                </p>
-                <% end %>
-
-            </div>
-            <!-- end of span6 first column-->
-
-            <div class="col-md-6">
-                <h4>
-                    Intro <hr>
-                </h4>
-
-                <% @lessons.each do |lesson| %>
-                <p>
-                   <div class="media">
-                  <a class="pull-left thumbnail" href="/lessons/<%= lesson.id %>">
-                    <img src="<%= lesson.thumbnail %>" style="width: 80px; height: 60px;">
-                  </a>
-                  <div class="media-body">
-                    <h5 class="media-heading"><%= lesson.title %> &nbsp; <span class="glyphicon glyphicon-ok"></h5>
-                    <a href = "/lessons/<%= lesson.id %>">
-                        <p><%= lesson.length %></p>
-                    </a>
-                  </div>
-                </div>
-                </p>
-                <% end %>
-
-
-
-
-            </div>
-            <!-- end of span6 2nd columns -->
-
         </div>
-        <!-- end of row -->
+        <!-- end of div col 6 offset 3  -->
+
+    </center>
+</div>
+<!-- end of div row -->

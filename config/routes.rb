@@ -5,6 +5,7 @@ Tapas::Application.routes.draw do
   resources :lessons
   resources :questiontolessons
   resources :userstats
+  resources :topics
 
 
   root :to => "questions#landing_page"

@@ -1,0 +1,45 @@
+
+
+Lesson Name: <%= @topic.name %>
+<br>
+Lesson Order: <%= @topic.order %>
+<br>
+
+
+
+<table class="table">
+	<thead>
+		<th>Order</th>
+		<th>Title</th>
+		<th>Edit</th>
+	</thead>
+
+	<tbody>
+
+		<% @lessons.each do |lesson| %>
+			
+			<tr>
+				<td>
+					<%= lesson.order %>
+				</td>
+				
+				<td>
+					<%= lesson.title %>
+				</td>
+
+				<td>
+					 <%= link_to "Edit video", edit_lesson_path(lesson) %>
+				</td>
+
+			</tr>
+		<% end %>
+
+	</tbody>
+
+</table>
+
+
+<br>
+
+
+<%= link_to "<- Go to all topics", topics_path %>

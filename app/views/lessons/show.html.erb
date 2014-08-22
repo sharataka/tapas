@@ -29,8 +29,8 @@
                 <br><br>
 
                 <% if @lesson.related != nil %>
-                <h4>Related Blog Posts and Resources</h4>
-                <%= @lesson.related.html_safe %>
+                    <h4>Related Blog Posts and Resources</h4>
+                    <%= @lesson.related.html_safe %>
                 <% end %>
             </div>
             <!-- end of span8 video + note column-->
@@ -70,7 +70,7 @@
                 <hr>
 
                 <h4>
-                    Other lessons in <%= @lesson.topic %>
+                    Other lessons
                 </h4>
 				
 				<!-- Don't show the same lesson under related lessons -->                

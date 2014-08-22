@@ -42,6 +42,7 @@
                 
                 <%= form_tag("/session/#{@session}/answers/#{@question.id}/order/#{@order}", method: "post") do %>
                
+               <% if @question.question_type == "MC" %>
                 <% if @order == 1 %>
                     <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
                     <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
@@ -76,6 +77,19 @@
                     <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
                     <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
                     <p>
+                <% end %>
+
+                <% else %>
+
+                     <p>
+                        <i>Enter your answer here:</i>
+                    </p>
+                    <p>
+                        <%= text_field_tag 'freeResponseInput' %>
+                    </p>
+
+                    <p>
+                        
                 <% end %>
                     
                 <%= submit_tag("Submit", class: "btn btn-success") %>

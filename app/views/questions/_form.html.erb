@@ -1,5 +1,10 @@
 <%= form_for(@question) do |f| %>
 <p>
+    <%= f.label :question_type %> (MC: multipe choice. FR: free response)<br />
+    <%= f.text_field :question_type %>
+</p>
+
+<p>
     <%= f.label :prompt %><br />
     <%= f.text_area :prompt %>
 </p>
@@ -42,7 +47,17 @@
 </p>
 
 <p>
-    <%= f.label :topic %><br />
+    <%= f.label :topic_id %><br />
+    <%= f.text_field :topic_id %>
+</p>
+
+<p>
+    <%= f.label :topic_slug %> (Leave blank; gets autofilled from above entry)<br />
+    <%= f.text_field :topic_slug %>
+</p>
+
+<p>
+    <%= f.label :topic %> (Leave blank; gets autofilled from above entry)<br />
     <%= f.text_field :topic %>
 </p>
 

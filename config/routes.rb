@@ -8,7 +8,7 @@ Tapas::Application.routes.draw do
   resources :topics
 
 
-  root :to => "questions#landing_page"
+  root :to => "questions#landing_page" 
   match "/dashboard" => "questions#index"
 
   devise_for :users
@@ -26,6 +26,9 @@ Tapas::Application.routes.draw do
 
   match "/review/:session_id" => "questions#review"
   match "/review/session/:session_id/answers/:question_id" => "questions#review_answer"
+
+
+  match "/resetforadmin" => "questions#adminreset"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

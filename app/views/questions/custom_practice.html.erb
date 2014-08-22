@@ -33,33 +33,17 @@
     </div>
 
     <div class="col-md-2">
-	    <p>
-	    	<label>
-	    		<input type="checkbox" name = "subject[]" value = "NetPresentValue" checked> Net Present Value
-	    	</label>
-		</p>
+	    
+        <% @topics.each do |topic| %>
+            <p>
+                <label>
+                    <input type="checkbox" name = "subject[]" value = "<%= topic.topic_slug %>" checked> <%= topic.name %>
+                </label>
+            </p>
+        <% end %>
 
-	    <p>
-	    	<label>
-	    		<input type="checkbox" name = "subject[]" value = "FamaFrench" checked> Fama French	
-	    	</label>
-		</p>
 	</div>
 
-	<!-- Second column  -->
-	<div class="col-md-2">
-    <p>
-    	<label>
-    		<input type="checkbox" name = "subject[]" value = "discountRate" checked> Discount rate
-    	</label>
-	</p>
-
-	<p>
-    	<label>
-    		<input type="checkbox" name = "subject[]" value = "gordonGrowth" checked> Gordon Growth
-    	</label>
-	</p>
-	</div>
 
 	</div>
 
@@ -85,6 +69,11 @@
     	<label>
     		<input type="radio" name = "questionpool" value = "Incorrect"> Incorrect
     	</label>
+    </p>
+    <p>
+        <label>
+            <input type="radio" name = "questionpool" value = "Correct"> Correct
+        </label>
 		</p>
 	</div>
 
@@ -119,6 +108,11 @@
 	<div class = "col-md-2 col-md-offset-2">
 		<%= submit_tag("Start session", class: "btn btn-success") %>
 	</div>
+
+    <div class = "col-md-2 col-md-offset-2">
+        <a href = "/resetforadmin" class = "btn btn-info">Admin reset</a>
+    </div>
+
 </div>
 
 </form>

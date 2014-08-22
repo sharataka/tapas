@@ -39,19 +39,33 @@
                 
                 <%= form_tag("/answers/#{@question.id}", method: "post") do %>
                
+               <!-- What question type is it? -->
+               <% if @question.question_type == "MC" %>
+                    <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
+                    <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
+                    <p>
+                    <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_one}") %>
+                    <%= label_tag(:multiplechoice_incorrect1, "#{@question.incorrect_one}") %>
+                    <p>
+                    <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_two}") %>
+                    <%= label_tag(:multiplechoice_incorrect2, "#{@question.incorrect_two}") %>
+                    <p>
+                    <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_three}") %>
+                    <%= label_tag(:multiplechoice_incorrect3, "#{@question.incorrect_three}") %>
+                    <p>
 
-                <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
-                <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
-                <p>
-                <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_one}") %>
-                <%= label_tag(:multiplechoice_incorrect1, "#{@question.incorrect_one}") %>
-                <p>
-                <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_two}") %>
-                <%= label_tag(:multiplechoice_incorrect2, "#{@question.incorrect_two}") %>
-                <p>
-                <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_three}") %>
-                <%= label_tag(:multiplechoice_incorrect3, "#{@question.incorrect_three}") %>
-                <p>
+                <% else %>
+                    <p>
+                        <i>Enter your answer here:</i>
+                    </p>
+                    <p>
+                        <%= text_field_tag 'optionsRadios' %>
+                    </p>
+
+                    <p>
+                <% end %>
+                <!-- End of question type path -->
+
                     
                 <%= submit_tag("Submit", class: "btn btn-success") %>
 

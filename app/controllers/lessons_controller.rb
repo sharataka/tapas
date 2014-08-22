@@ -2,7 +2,7 @@ class LessonsController < ApplicationController
 	before_filter :user_signed_in, :except => []
 
 	def index
-		@lessons = Lesson.all
+		@lessons = Lesson.order("lesson_order asc")
 		@topics = Topic.all
 	end
 
@@ -14,7 +14,7 @@ class LessonsController < ApplicationController
 	  @lesson = Lesson.new(params[:lesson])
 	  if @lesson.save
 	    flash[:notice] = "Lesson has been created."
-	    redirect_to @lesson
+	    redirect_to "/admin"
 	  else
 	    flash[:alert] = "Lesson has not been created."
 	    render :action => "new"
@@ -23,15 +23,13 @@ class LessonsController < ApplicationController
 
 	def show
  		@lesson = Lesson.find(params[:id])
- 		@next_lesson = Lesson.where(:order => @lesson.order + 1).first
- 		
- 		# Is there a next lesson?
- 		if @next_lesson == nil
+ 		@next_lesson = Lesson.where(:id => @lesson.nextlesson).first
+
+ 		if @next_lesson.id == @lesson.id
  			@no_next_lesson = true
  		end
 
- 		@related_lessons = Lesson.where(:topic => @lesson.topic).limit(4)
-
+ 		@related_lessons = Lesson.where("lesson_order > ?", @next_lesson.lesson_order).limit(4)
 	end
 
 	def edit
@@ -47,6 +45,13 @@ class LessonsController < ApplicationController
 			flash[:alert] = 'Lesson has not been updated.'
 			render :action => 'edit'
 		end
+	end
+
+	def destroy
+		@lesson = Lesson.find(params[:id])
+		@lesson.destroy
+		flash[:notice] = 'Lesson has been deleted.'
+		redirect_to "/admin"
 	end
 
 	private

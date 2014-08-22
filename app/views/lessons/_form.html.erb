@@ -2,8 +2,8 @@
 
 
 <p>
-    <%= f.label :order %> (0 = primary video)<br />
-    <%= f.text_field :order %>
+    <%= f.label :lesson_order %><br />
+    <%= f.text_field :lesson_order %>
 </p>
 
 
@@ -12,10 +12,6 @@
     <%= f.text_field :title %>
 </p>
 
-<p>
-    <%= f.label :topic %><br />
-    <%= f.text_field :topic %>
-</p>
 
 <p>
     <%= f.label :platform %><br />
@@ -33,7 +29,7 @@
 </p>
 
 <p>
-    <%= f.label :nextlesson %><br />
+    <%= f.label :nextlesson %> (lesson_id of next lesson)<br />
     <%= f.text_field :nextlesson %>
 </p>
 
@@ -48,7 +44,7 @@
 </p>
 
 <p>
-    <%= f.label :topic_id %><br />
+    <%= f.label :topic_id %> (topic_id)<br />
     <%= f.text_field :topic_id %>
 </p>
 

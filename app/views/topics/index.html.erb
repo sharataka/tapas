@@ -1,12 +1,14 @@
- <%= link_to "Add new topic", new_topic_path %>
- <br><br>
+<a href ="/admin"><- Back to Admin </a>
 
+<h3>Topics <small><%= link_to "Add new topic", new_topic_path %></small></h3>
 
 	<table class="table">
 	<thead>
-		<th>Order</th>
+		<th>Topic ID</th>
+		<th>Topic Order</th>
 		<th>Topic Name</th>
 		<th>Edit</th>
+		<td>Delete</th>
 	</thead>
 
 	<tbody>
@@ -15,7 +17,11 @@
 			
 			<tr>
 				<td>
-					<%= topic.order %>
+					<%= topic.id %>
+				</td>
+
+				<td>
+					<%= topic.topic_order %>
 				</td>
 				
 				<td>
@@ -24,6 +30,10 @@
 
 				<td>
 					  <%= link_to "Edit topic", edit_topic_path(topic) %>
+				</td>
+
+				<td>
+					<a data-confirm="Are you sure?" data-method="delete" href="/topics/<%= topic.id%>" rel="nofollow">Delete</a>
 				</td>
 
 			</tr>

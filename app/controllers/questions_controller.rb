@@ -2,6 +2,23 @@ class QuestionsController < ApplicationController
 	before_filter :user_signed_in, :except => [:landing_page]
 	before_filter :is_admin, :only => [:new, :create, :edit, :update, :admin]
 
+	def adminreset
+		Answer.delete_all
+		@questions = Question.all
+		@questions.each do |question|
+			answer = Answer.new
+			answer.user_id = current_user.id
+			answer.question_id = question.id
+			answer.result = "Unanswered"
+			answer.title = question.title
+			answer.difficulty = question.difficulty
+			answer.topic = question.topic_slug
+			answer.save
+		end
+
+	end
+
+
 	def landing_page
 		if current_user
 			redirect_to "/dashboard"
@@ -14,8 +31,8 @@ class QuestionsController < ApplicationController
 			redirect_to new_user_session_path
 		else
 			@questions = Question.all
-			@lessons = Lesson.all
-			@topics = Topic.all
+			@lessons = Lesson.order("lesson_order asc")
+			@topics = Topic.order("topic_order asc")
 		end
 	end
 
@@ -24,6 +41,9 @@ class QuestionsController < ApplicationController
 			@error_message = "yes"
 			@message = "There aren't any questions for the filters you selected! Please pick other filters!"
 		end
+
+		@topics = Topic.all
+
 	end
 
 	def decide_start_session
@@ -45,8 +65,10 @@ class QuestionsController < ApplicationController
  		# Process/parse the subjects
 		session.subjects = params[:subject].inspect
 
+		puts "Subject(s): #{session.subjects}"
+		puts "Question pool: #{session.question_pool}"
+
 		session.user_id = current_user.id
-		session.save
 
 		# Convert subject params into array to retrieve question. Otherwise it's a string
 		subject = Array.new
@@ -60,7 +82,10 @@ class QuestionsController < ApplicationController
 			# If there arent enough questions, stay on the same page and show a message prompting to change the filters		
 			redirect_to "/custom_practice/try_again"
 		else			
-			# Redirect to first question
+			# Save the session
+			session.save
+			
+			# Redirect to first question	
 			redirect_to "/session/#{session.id}/question/#{first_question.question_id}"
 		end
 		
@@ -75,19 +100,6 @@ class QuestionsController < ApplicationController
 
 			total_question_count = @questions.count
 
-			# For now, just add them all from scratch...need to change this later!
-			if student_answers_count != total_question_count
-				for question in @questions
-					create_answer = Answer.new
-					create_answer.question_id = question.id
-					create_answer.user_id = current_user.id
-					create_answer.result = "Unanswered"
-					create_answer.topic = question.topic
-					create_answer.title = question.title
-					create_answer.difficulty = question.difficulty
-					create_answer.save
-				end
-			end
 	end
 
 	def new
@@ -98,6 +110,10 @@ class QuestionsController < ApplicationController
 	  @question = Question.new(params[:question])
 	  if @question.save
 	    flash[:notice] = "Question has been created."
+	    topic_object = Topic.find(@question.topic_id)
+		@question.topic = topic_object.name
+		@question.topic_slug = topic_object.topic_slug
+		@question.save
 	    redirect_to @question
 	  else
 	    flash[:alert] = "Question has not been created."
@@ -126,6 +142,10 @@ class QuestionsController < ApplicationController
 		@question = Question.find(params[:id])
 		if @question.update_attributes(params[:question])
 			flash[:notice] = 'Question has been updated.'
+			topic_object = Topic.find(@question.topic_id)
+			@question.topic = topic_object.name
+			@question.topic_slug = topic_object.topic_slug
+			@question.save
 			redirect_to @question
 		else
 			flash[:alert] = 'Question has not been updated.'
@@ -137,7 +157,7 @@ class QuestionsController < ApplicationController
 		@question = Question.find(params[:id])
 		@question.destroy
 		flash[:notice] = 'Question has been deleted.'
-		redirect_to projects_path
+		redirect_to "/admin"
 	end
 
 	def answer
@@ -146,6 +166,11 @@ class QuestionsController < ApplicationController
 		@session = params[:session_id]
 		@order = params[:order].to_i
 		@student_response = params[:optionsRadios]
+		
+		if @student_response == nil
+			@student_response = params[:freeResponseInput]
+		end
+
 		
 		# Did student get question correct?
 		if @question.correct_response == @student_response

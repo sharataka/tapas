@@ -14,7 +14,9 @@
 	<thead>
 		<th>Question ID</th>
 		<th>Question Title</th>
+		<th>Question Topic</th>
 		<th>Edit Question</th>
+		<th>Delete Question</th>
 	</thead>
 
 	<tbody>
@@ -22,7 +24,9 @@
 		<tr>
 			<td><%= question.id %></td>
 			<td><%= question.title %></td>
+			<td><%= question.topic %></td>
 			<td><%= link_to 'Edit', edit_question_path(question) %></td>
+			<td><a data-confirm="Are you sure?" data-method="delete" href="/questions/<%= question.id%>" rel="nofollow">Delete</a></td>
 		</tr>
 		<% end %>
 	</tbody>
@@ -38,15 +42,17 @@
 		<th>Lesson Order</th>
 		<th>Lesson Title</th>
 		<th>Edit Lesson</th>
+		<th>Delete Lesson</th>
 	</thead>
 
 	<tbody>
 		<% @lessons.each do |lesson| %>
 		<tr>
 			<td><%= lesson.id %></td>
-			<td><%= lesson.order %></td>
-			<td><%= lesson.title %></td>
+			<td><%= lesson.lesson_order %></td>
+			<td><a href = "/lessons/<%= lesson.id %>"><%= lesson.title %></a></td>
 			<td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
+			<td><a data-confirm="Are you sure?" data-method="delete" href="/lessons/<%= lesson.id%>" rel="nofollow">Delete</a></td>
 		</tr>
 		<% end %>
 	</tbody>
@@ -55,16 +61,29 @@
 
 
 
-<!-- OLD TOPICS CODE, ABANDONED -->
-<!-- 
-<h3>Topics <small><%= link_to "Create a new topic", new_topic_path %></small></h3>
+<!-- TOPICS CODE -->
+<h3><%= link_to "All Topics", topics_path %> <small><%= link_to "Create a new topic", new_topic_path %></small></h3>
 
-<% @topics.each do |topic| %>
 
-	<p>
-		<%= link_to 'Edit', edit_topic_path(topic) %>
-		 Topic ID <%= topic.id %> - <%= topic.name %>
-	</p>
+<table class="table">
+	<thead>
+		<th>Topic ID</th>
+		<!-- <th>Topic Order</th> -->
+		<th>Topic name</th>
+		<th>Edit Topic</th>
+	</thead>
 
-<% end %> -->
+	<tbody>
+		<% @topics.each do |topic| %>
+		<tr>
+			<td><%= topic.id %></td>
+			<!-- <td><%= topic.topic_order %></td> -->
+			<td><a href = "/topics/<%= topic.id %>"><%= topic.name %></a></td>
+			<td><%= link_to 'Edit', edit_topic_path(topic) %></td>
+		</tr>
+		<% end %>
+	</tbody>
+
+</table>
+
 <!-- END OF TOPICS CODE -->

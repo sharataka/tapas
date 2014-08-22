@@ -2,7 +2,7 @@ class TopicsController < ApplicationController
 before_filter :user_signed_in, :except => []
 
 	def index
-		@topics = Topic.all
+		@topics = Topic.order("topic_order asc")
 	end
 
 	def new
@@ -13,7 +13,7 @@ before_filter :user_signed_in, :except => []
 	  @topic = Topic.new(params[:topic])
 	  if @topic.save
 	    flash[:notice] = "Topic has been created."
-	    redirect_to @topic
+	    redirect_to topics_path
 	  else
 	    flash[:alert] = "Topic has not been created."
 	    render :action => "new"
@@ -33,11 +33,18 @@ before_filter :user_signed_in, :except => []
 		@topic = Topic.find(params[:id])
 		if @topic.update_attributes(params[:topic])
 			flash[:notice] = 'Topic has been updated.'
-			redirect_to @topic
+			redirect_to topics_path
 		else
 			flash[:alert] = 'Topic has not been updated.'
 			render :action => 'edit'
 		end
+	end
+
+	def destroy
+		@topic = Topic.find(params[:id])
+		@topic.destroy
+		flash[:notice] = 'Topic has been deleted.'
+		redirect_to topics_path
 	end
 
 	private

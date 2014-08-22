@@ -1,45 +1,34 @@
+<p><%= link_to "<- Go to all topics", topics_path %></p>
 
+<p>Topic Name: <%= @topic.name %></p>
 
-Lesson Name: <%= @topic.name %>
-<br>
-Lesson Order: <%= @topic.order %>
-<br>
+<p>Topic Order: <%= @topic.id %></p>
 
-
+<p><%= link_to 'Edit topic', edit_topic_path(@topic) %></p>
 
 <table class="table">
 	<thead>
-		<th>Order</th>
-		<th>Title</th>
-		<th>Edit</th>
+		<th>Lesson ID</th>
+		<th>Lesson Order</th>
+		<th>Lesson Title</th>
+		<th>Edit Lesson</th>
+		<th>Delete Lesson</th>
 	</thead>
 
 	<tbody>
-
 		<% @lessons.each do |lesson| %>
-			
-			<tr>
-				<td>
-					<%= lesson.order %>
-				</td>
-				
-				<td>
-					<%= lesson.title %>
-				</td>
-
-				<td>
-					 <%= link_to "Edit video", edit_lesson_path(lesson) %>
-				</td>
-
-			</tr>
+		<tr>
+			<td><%= lesson.id %></td>
+			<td><%= lesson.lesson_order %></td>
+			<td><a href = "/lessons/<%= lesson.id %>"><%= lesson.title %></a></td>
+			<td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
+			<td>
+				<a data-confirm="Are you sure?" data-method="delete" href="/lessons/<%= lesson.id%>" rel="nofollow">Delete</a>
+			</td>
+		</tr>
 		<% end %>
-
 	</tbody>
 
 </table>
 
-
 <br>
-
-
-<%= link_to "<- Go to all topics", topics_path %>

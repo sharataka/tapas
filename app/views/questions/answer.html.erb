@@ -33,58 +33,90 @@
 
             <div class="col-md-5 col-md-offset-1">
 
-                <% if @order == 1 %> 
-                    <p >
-                        <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
-                        <span class="glyphicon glyphicon-ok" style = "color: #5cb85c;"></span>
-                        <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
-                    </p>
-                <% end %>
-                <p>
-                
-                <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_one}") %>
-                <% if @student_response == @question.incorrect_one %>
-                    <span class="glyphicon glyphicon-remove" style = "color: #d9534f;"></span>
-                <% end %>
-                <%= label_tag(:multiplechoice_incorrect1, "#{@question.incorrect_one}") %>
-                
-                <% if @order == 2 %> 
-                    <p >
-                        <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
-                        <span class="glyphicon glyphicon-ok" style = "color: #5cb85c;"></span>
-                        <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
-                    </p>
-                <% end %>
-                <p>
+                <!-- Is it a multiple choice (MC) or free response (FR) question? -->
+                <% if @question.question_type == "MC" %>
 
-                <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_two}") %>
-                <% if @student_response == @question.incorrect_two %>
-                    <span class="glyphicon glyphicon-remove" style = "color: #d9534f;"></span>
-                <% end %>
-                <%= label_tag(:multiplechoice_incorrect2, "#{@question.incorrect_two}") %>
-                
-                <% if @order == 3 %> 
-                    <p >
-                        <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
-                        <span class="glyphicon glyphicon-ok" style = "color: #5cb85c;"></span>
-                        <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
-                    </p>
-                <% end %>
+                    <% if @order == 1 %> 
+                        <p >
+                            <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
+                            <span class="glyphicon glyphicon-ok" style = "color: #5cb85c;"></span>
+                            <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
+                        </p>
+                    <% end %>
+                    <p>
+                    
+                    <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_one}") %>
+                    <% if @student_response == @question.incorrect_one %>
+                        <span class="glyphicon glyphicon-remove" style = "color: #d9534f;"></span>
+                    <% end %>
+                    <%= label_tag(:multiplechoice_incorrect1, "#{@question.incorrect_one}") %>
+                    
+                    <% if @order == 2 %> 
+                        <p >
+                            <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
+                            <span class="glyphicon glyphicon-ok" style = "color: #5cb85c;"></span>
+                            <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
+                        </p>
+                    <% end %>
+                    <p>
 
-                <p>
-                
-                <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_three}") %>
-                <% if @student_response == @question.incorrect_three %>
-                    <span class="glyphicon glyphicon-remove" style = "color: #d9534f;"></span>
-                <% end %>
-                <%= label_tag(:multiplechoice_incorrect3, "#{@question.incorrect_three}") %>
-                
-                <% if @order == 4 %>
-                    <p >
-                        <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
-                        <span class="glyphicon glyphicon-ok" style = "color: #5cb85c;"></span>
-                        <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
-                    </p>
+                    <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_two}") %>
+                    <% if @student_response == @question.incorrect_two %>
+                        <span class="glyphicon glyphicon-remove" style = "color: #d9534f;"></span>
+                    <% end %>
+                    <%= label_tag(:multiplechoice_incorrect2, "#{@question.incorrect_two}") %>
+                    
+                    <% if @order == 3 %> 
+                        <p >
+                            <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
+                            <span class="glyphicon glyphicon-ok" style = "color: #5cb85c;"></span>
+                            <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
+                        </p>
+                    <% end %>
+
+                    <p>
+                    
+                    <%= radio_button_tag(:optionsRadios, "#{@question.incorrect_three}") %>
+                    <% if @student_response == @question.incorrect_three %>
+                        <span class="glyphicon glyphicon-remove" style = "color: #d9534f;"></span>
+                    <% end %>
+                    <%= label_tag(:multiplechoice_incorrect3, "#{@question.incorrect_three}") %>
+                    
+                    <% if @order == 4 %>
+                        <p >
+                            <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
+                            <span class="glyphicon glyphicon-ok" style = "color: #5cb85c;"></span>
+                            <%= label_tag(:multiplechoice_correct, "#{@question.correct_response}") %>
+                        </p>
+                    <% end %>
+
+                <% else %>
+                <!-- Not a multiple choice question -->
+
+                    <% if @result == "Correct" %>
+
+                        <!-- Disabled input: http://getbootstrap.com/css/ -->
+                        <p>
+                            <input class = "col-md-5" type="text" disabled="disabled" class="form-control" value="<%= @student_response %>" style="">
+                        </p>
+
+                        <br>
+                        <p>
+                            <span class="glyphicon glyphicon-ok" style = "color: #5cb85c;"></span> Correct!
+                        </p>
+
+    
+                    <% else %>
+                        <p>
+                            <input class = "col-md-5" type="text" disabled="disabled" class="form-control" value="<%= @student_response %>" style="">
+                        </p>
+
+                        <br>
+                        <p>
+                            <span class="glyphicon glyphicon-remove" style = "color: #d9534f;"></span> Correct answer: <%= @question.correct_response %>
+                        </p>
+                    <% end %>
+
                 <% end %>
 
                 <p>

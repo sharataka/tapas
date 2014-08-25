@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
 	before_filter :is_admin, :only => [:new, :create, :edit, :update, :admin]
 
 	def adminreset
-		Answer.delete_all
+		Answer.where(:user_id => current_user.id).delete_all
 		@questions = Question.all
 		@questions.each do |question|
 			answer = Answer.new
@@ -13,6 +13,7 @@ class QuestionsController < ApplicationController
 			answer.title = question.title
 			answer.difficulty = question.difficulty
 			answer.topic = question.topic_slug
+			answer.topic_userfacing_name = question.topic
 			answer.save
 		end
 
@@ -248,15 +249,21 @@ class QuestionsController < ApplicationController
 	end
 
 	def review_all
-		@answers = Answer.where(:user_id => current_user.id)
-		@correct = 0
-		@answers.each do |answer|
-			if answer.result == "Correct"
-				@correct = @correct + 1
+		@answers = Answer.where(:user_id => current_user.id, :result => ['Correct', 'Incorrect'])
+		if @answers.count != 0
+			puts @answers
+			@correct = 0
+			@answers.each do |answer|
+				if answer.result == "Correct"
+					@correct = @correct + 1
+				end
 			end
+			@total = @answers.count
+			@percent_correct =  ((@correct.to_f/@total.to_f) * 100).to_int
+
+		else
+			# No answers to review because all Unanswered
 		end
-		@total = @answers.count
-		@percent_correct =  ((@correct.to_f/@total.to_f) * 100).to_int
 	end
 
 	private

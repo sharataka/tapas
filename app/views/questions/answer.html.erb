@@ -1,7 +1,11 @@
 <div class="alert alert-warning">
 	<div class = "row">
         <h5 class = "text-center">
-            Choose the best option
+            <% if @question.question_type == "MC" %>
+                Choose the best option
+            <% else %>
+                Enter your answer in the box
+            <% end %>
         </h5>
     </div>
 </div>
@@ -97,7 +101,7 @@
 
                         <!-- Disabled input: http://getbootstrap.com/css/ -->
                         <p>
-                            <input class = "col-md-5" type="text" disabled="disabled" class="form-control" value="<%= @student_response %>" style="">
+                            <input class = "col-md-5" type="text" disabled="disabled" class="form-control" value="<%= @student_response %>" style="background-color:#C2F0C2;">
                         </p>
 
                         <br>
@@ -108,7 +112,7 @@
     
                     <% else %>
                         <p>
-                            <input class = "col-md-5" type="text" disabled="disabled" class="form-control" value="<%= @student_response %>" style="">
+                            <input class = "col-md-5" type="text" disabled="disabled" class="form-control" value="<%= @student_response %>" style="background-color:#FFCCCC;">
                         </p>
 
                         <br>

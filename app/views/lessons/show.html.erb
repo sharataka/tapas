@@ -1,3 +1,39 @@
+<script>
+function clearContents() {
+    document.getElementById("feedback_module").innerHTML = "Thanks for your feedback! We appreciate you taking the time to leave us feedback, and we're doing our best to improve our content.";
+}
+</script>
+
+<script>
+function feedback_test() {
+    
+    // get feedback
+    
+    // var feedback = $('#feedback_test').find(":selected").text();
+    var feedback = $('#feedback_test').val();
+    var lesson_id = <%= @lesson.id %>
+    
+    console.log(feedback);
+    console.log(lesson_id);
+    
+    // clear contents of div
+    clearContents();
+
+    // get request
+
+      $.get("/lesson_feedback/lesson/" + lesson_id + "/feedback/" + feedback + "",function(data,status){
+        console.log('sent');
+      });
+
+
+
+
+}
+
+
+    
+</script>
+
 <div class = "row">
     <div class="col-md-12">
         <h3>
@@ -27,6 +63,32 @@
                 <br><button type="button" class="btn btn-success">Save Note</button>
 				-->
                 <br><br>
+
+                <div class="alert alert-warning">
+
+                    <div id = "feedback_module">
+                        <h4>How helpful was this video to you?</h4>
+                        
+                        <p>
+
+
+                        <select id = "feedback_test" name = "feedback_test">
+                            <option value = "1">Great and helpful</option>
+                            <option value = "2">Clear and interesting but not what I'm looking for</option>
+                            <option value = "3">Okay but wasn't very interesting</option>
+                            <option value = "4">Unclear or confusing</option>
+                        </select>
+
+                        <p>
+                        
+                        <input type = "button" class = "btn btn-success" value = "Send feedback" onclick = "feedback_test()">
+
+                    </div>
+
+
+                    
+                </div>
+                
 
                 <% if @lesson.related != nil %>
                     <h4>Related Blog Posts and Resources</h4>

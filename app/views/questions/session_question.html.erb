@@ -4,8 +4,11 @@
 <div class="alert alert-warning">
 	<div class = "row">
         <h5 class = "text-center">
-            Choose the best option 
-            <a href = "/questions/<%= @question.id %>/edit">Edit question</a>
+            <% if @question.question_type == "MC" %>
+                Choose the best option
+            <% else %>
+                Enter your answer in the box
+            <% end %>
         </h5>
     </div>
 </div>
@@ -81,15 +84,16 @@
 
                 <% else %>
 
-                     <p>
-                        <i>Enter your answer here:</i>
-                    </p>
+                     
                     <p>
                         <%= text_field_tag 'freeResponseInput' %>
                     </p>
 
                     <p>
-                        
+                        <i>Ignore dollar signs and commas</i>
+                    </p>
+                    <p>
+
                 <% end %>
                     
                 <%= submit_tag("Submit", class: "btn btn-success") %>

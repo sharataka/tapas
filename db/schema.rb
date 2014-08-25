@@ -11,19 +11,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140822182258) do
+ActiveRecord::Schema.define(:version => 20140823231337) do
 
   create_table "answers", :force => true do |t|
     t.integer  "user_id"
     t.integer  "question_id"
     t.string   "result"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
     t.string   "topic"
     t.integer  "practicesession_id"
     t.string   "title"
     t.string   "difficulty"
     t.string   "studentanswer"
+    t.string   "topic_userfacing_name"
+  end
+
+  create_table "lesson_feedbacks", :force => true do |t|
+    t.integer  "lesson_id"
+    t.string   "feedback"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "lessons", :force => true do |t|

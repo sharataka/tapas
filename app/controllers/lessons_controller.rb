@@ -30,6 +30,8 @@ class LessonsController < ApplicationController
  		end
 
  		@related_lessons = Lesson.where("lesson_order > ?", @next_lesson.lesson_order).limit(4)
+
+ 		@lesson_feedback = LessonFeedback.new
 	end
 
 	def edit
@@ -53,6 +55,16 @@ class LessonsController < ApplicationController
 		flash[:notice] = 'Lesson has been deleted.'
 		redirect_to "/admin"
 	end
+
+	def lesson_feedback
+		
+		feedback = params[:feedback_id]
+		lesson_id = params[:lesson_id]
+
+		puts "lesson_id is #{lesson_id}"
+		puts "feedback_id is #{feedback}"
+	end
+
 
 	private
 	def user_signed_in

@@ -36,6 +36,7 @@
 
             <div class="col-md-5 col-md-offset-1">
 
+                <% if @question.question_type == "MC" %>
                 <p > 
                     <%= radio_button_tag(:optionsRadios, "#{@question.correct_response}") %>
                     <span class="glyphicon glyphicon-ok" style = "color: #5cb85c;"></span>
@@ -66,6 +67,36 @@
                 <%= label_tag(:multiplechoice_incorrect3, "#{@question.incorrect_three}") %>
                 
                 <p>
+
+                <% else %>
+
+                   
+                        <% if @result == "Correct" %>
+                             <p>
+                                <input class = "col-md-5" type="text" disabled="disabled" class="form-control" value="<%= @answer.studentanswer %>" style="background-color:#C2F0C2;">
+                            </p>
+                            <br>
+
+
+                        <% else %>
+                            <p>
+                                <input class = "col-md-5" type="text" disabled="disabled" class="form-control" value="<%= @answer.studentanswer %>" style="background-color:#FFCCCC;">
+                            </p>
+                            <br>
+
+                            <p>
+                                Correct response: <%= @question.correct_response %>
+                            </p>
+                        <% end %>
+                    </p>
+                    
+                    <br>
+
+                    <p>
+                        
+                    </p>
+
+                <% end %>
 
             </div>
             <!-- end of span5 answer choices -->

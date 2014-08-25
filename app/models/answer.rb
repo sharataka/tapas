@@ -1,3 +1,3 @@
 class Answer < ActiveRecord::Base
-  attr_accessible :question_id, :result, :user_id, :topic, :studentanswer, :title, :practicesession_id, :difficulty
+  attr_accessible :question_id, :result, :user_id, :topic, :studentanswer, :title, :practicesession_id, :difficulty, :topic_userfacing_name
 end

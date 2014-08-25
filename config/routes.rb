@@ -6,6 +6,7 @@ Tapas::Application.routes.draw do
   resources :questiontolessons
   resources :userstats
   resources :topics
+  resources :lesson_feedbacks
 
 
   root :to => "questions#landing_page" 
@@ -27,6 +28,9 @@ Tapas::Application.routes.draw do
   match "/review/:session_id" => "questions#review"
   match "/review/session/:session_id/answers/:question_id" => "questions#review_answer"
 
+
+  # Lesson feedback
+  match "/lesson_feedback/lesson/:lesson_id/feedback/:feedback" => "lesson_feedbacks#custom_feedback"
 
   match "/resetforadmin" => "questions#adminreset"
 

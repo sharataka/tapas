@@ -6,7 +6,11 @@
 </h3>
 
 <h4>
-	You answered <%= @correct %>/<%= @total %> questions correct (<%= @percent_correct %>%).
+	<% if @answers.count != 0 %>
+		You answered <%= @correct %>/<%= @total %> questions correct (<%= @percent_correct %>%).
+	<% else %>
+		You haven't answered any questions to review yet!
+	<% end %>
 </h4>
 <p>
 <table class="table">
@@ -43,7 +47,7 @@
 					<%= answer.title %>
 				</a>
 			</td>
-			<td><%= answer.topic %></td>
+			<td><%= answer.topic_userfacing_name %></td>
 			<td><%= answer.difficulty %></td>
 			<td><%= answer.updated_at.strftime("%m/%d/%Y") %></td>
 		</tr>

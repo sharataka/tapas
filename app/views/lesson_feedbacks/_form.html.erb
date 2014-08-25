@@ -1,0 +1,15 @@
+<%= form_for(@lesson_feedback, remote: true) do |f| %>
+
+<p>
+    <%= f.label :feedback %><br />
+    <%= f.text_field :feedback %>
+</p>
+
+<p>
+    <%= f.label :lesson_id %><br />
+    <%= f.text_field :lesson_id %>
+</p>
+
+<%= f.submit :class => "btn btn-success", :value => "Send feedback" %>
+
+<% end %>

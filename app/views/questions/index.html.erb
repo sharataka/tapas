@@ -25,7 +25,7 @@
             </p>
 
         <% end %>
-        
+
         <%= link_to "Go to all lessons", lessons_path , :class => "btn btn-success" %>
         
 
@@ -49,7 +49,14 @@
             Results<hr>
         </h4>
         <p>
-            You've answered 45 / 90 (50%) questions correctly. <a href = "#">See detailed results.</a>
+            
+
+            <% if @answers.count != 0 %>
+                You answered <%= @correct %>/<%= @total %> questions correct (<%= @percent_correct %>%). <a href = "/review/all">See detailed results.</a>
+            <% else %>
+                You haven't answered any questions yet!
+            <% end %>
+
             <br><br>
         </p>
 

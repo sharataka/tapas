@@ -17,6 +17,10 @@ class QuestionsController < ApplicationController
 			answer.save
 		end
 
+		userstat = Userstat.where(:user_id => current_user.id).first_question
+		userstat.resetCount = userstat.resetCount + 1
+		userstat.save
+
 	end
 
 
@@ -93,14 +97,28 @@ class QuestionsController < ApplicationController
 	end
 
 	def index
-			@questions = Question.all
-			@lessons = Lesson.paginate(:page => params[:page], :per_page => 10)
+		@questions = Question.all
+		@lessons = Lesson.paginate(:page => params[:page], :per_page => 10)
 
-			# Determine whether new questions have been added, they need to be added to the answer table
-			student_answers_count = Answer.where(:user_id => current_user.id).count
-			puts student_answers_count
 
-			total_question_count = @questions.count
+
+		# Get count of questions answered
+		@answers = Answer.where(:user_id => current_user.id, :result => ['Correct', 'Incorrect'])
+		
+		if @answers.count != 0
+			puts @answers
+			@correct = 0
+			@answers.each do |answer|
+				if answer.result == "Correct"
+					@correct = @correct + 1
+				end
+			end
+			@total = @answers.count
+			@percent_correct =  ((@correct.to_f/@total.to_f) * 100).to_int
+
+		else
+			# No answers to review because all Unanswered
+		end
 
 	end
 

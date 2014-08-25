@@ -1,37 +1,24 @@
 <script>
-function clearContents() {
-    document.getElementById("feedback_module").innerHTML = "Thanks for your feedback! We appreciate you taking the time to leave us feedback, and we're doing our best to improve our content.";
-}
+    function clearContents() {
+        document.getElementById("feedback_module").innerHTML = "Thanks for your feedback! We appreciate you taking the time to leave us feedback, and we're doing our best to improve our content.";
+    }
 </script>
 
 <script>
-function feedback_test() {
-    
-    // get feedback
-    
-    // var feedback = $('#feedback_test').find(":selected").text();
-    var feedback = $('#feedback_test').val();
-    var lesson_id = <%= @lesson.id %>
-    
-    console.log(feedback);
-    console.log(lesson_id);
-    
-    // clear contents of div
-    clearContents();
+    function feedback_test() {
+        
+        // get feedback
+        var feedback = $('#feedback_test').val();
+        var lesson_id = <%= @lesson.id %>
+        
+        // clear contents of div
+        clearContents();
 
-    // get request
+        // get request
+        $.get("/lesson_feedback/lesson/" + lesson_id + "/feedback/" + feedback + "",function(data,status){
+        });
 
-      $.get("/lesson_feedback/lesson/" + lesson_id + "/feedback/" + feedback + "",function(data,status){
-        console.log('sent');
-      });
-
-
-
-
-}
-
-
-    
+    }
 </script>
 
 <div class = "row">
@@ -121,7 +108,9 @@ function feedback_test() {
                     <img src="<%= @next_lesson.thumbnail %>" style="width: 80px; height: 60px;">
                   </a>
                   <div class="media-body">
-                    <h5 class="media-heading"><%= @next_lesson.title %> &nbsp; <span class="glyphicon glyphicon-ok"></h5>
+                    <h5 class="media-heading"><%= @next_lesson.title %> 
+                        <!-- &nbsp; <span class="glyphicon glyphicon-ok"> -->
+                    </h5>
                     <a href = "/lessons/<%= @next_lesson.id %>">
                         <p><%= @next_lesson.length %></p>
                     </a>

@@ -30,7 +30,7 @@
                                 <a href = "/lessons/<%= lesson.id %>">
                                     <%= lesson.title %>
                                 </a>    
-                                 &nbsp; <span class="glyphicon glyphicon-ok">
+                                 <!-- &nbsp; <span class="glyphicon glyphicon-ok"> -->
                              </h3>
                             
                             <p>
@@ -48,6 +48,8 @@
                     <hr>
                 
                 <% end %>
+
+                <%= will_paginate @lessons %>
 
             
         </div>

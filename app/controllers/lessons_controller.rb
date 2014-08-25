@@ -2,7 +2,7 @@ class LessonsController < ApplicationController
 	before_filter :user_signed_in, :except => []
 
 	def index
-		@lessons = Lesson.order("lesson_order asc")
+		@lessons = Lesson.order("lesson_order asc").paginate(:page => params[:page], :per_page => 10)
 		@topics = Topic.all
 	end
 

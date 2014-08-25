@@ -94,6 +94,7 @@ class QuestionsController < ApplicationController
 
 	def index
 			@questions = Question.all
+			@lessons = Lesson.paginate(:page => params[:page], :per_page => 10)
 
 			# Determine whether new questions have been added, they need to be added to the answer table
 			student_answers_count = Answer.where(:user_id => current_user.id).count

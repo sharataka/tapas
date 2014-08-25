@@ -14,45 +14,20 @@
             
     <div class="col-md-4">
         <h4>
-            Suggested Lessons <small> <%= link_to "Go to all lessons", lessons_path %></small><hr>
+            First 10 Lessons <small> <%= link_to "Go to all lessons", lessons_path %></small><hr>
         </h4>
 
-        <p>
-            
-            <a href = "#">First lesson video</a>
-            &nbsp;<small>4:32</small>
-            &nbsp;<span class="glyphicon glyphicon-ok"></span>
-        </p>
+        <% @lessons.each do |lesson| %>
+            <p>
+                <a href = "/lessons/<%= lesson.id %>"><%= lesson.title %></a>
+                &nbsp;<small><%= lesson.length %></small>
+                <!-- &nbsp;<span class="glyphicon glyphicon-ok"></span> -->
+            </p>
 
-        <p>
-            <a href = "#">First lesson video</a>
-            &nbsp;<small>4:32</small>
-            &nbsp;<span class="glyphicon glyphicon-eye-open"></span>
-        </p>
-
-        <p>
-            <a href = "#">First lesson video</a>
-            &nbsp;<small>4:32</small>
-        </p>
-
-        <br><h4>
-            Time value of money <hr>
-        </h4>
-
-        <p>
-            <a href = "#">First lesson video</a>
-            &nbsp;<small>4:32</small>
-        </p>
-
-        <p>
-            <a href = "#">First lesson video</a>
-            &nbsp;<small>4:32</small>
-        </p>
-
-        <p>
-            <a href = "#">First lesson video</a>
-            &nbsp;<small>4:32</small>
-        </p>
+        <% end %>
+        
+        <%= link_to "Go to all lessons", lessons_path , :class => "btn btn-success" %>
+        
 
     </div>
     <!-- end of span4 suggested lessons-->
@@ -64,17 +39,10 @@
         </h4>
 
         <p class = "text-center">
-            <a href = "/questions/1" type="button" class="btn btn-success">Start Practice Session</a>
+            <a href = "/custom_practice" type="button" class="btn btn-success">Customize Practice Session</a>
 
             <br>
 
-            or
-
-            <br>
-
-            <a href = "/custom_practice">
-                Customize Practice Session
-            </a>
         </p>
 
         <h4>
@@ -85,10 +53,11 @@
             <br><br>
         </p>
 
-        <h4>
+        <!-- Notes module -->
+        <!-- <h4>
             Notes<hr>
         </h4>
-        You have 4 notes. <a href = "#">View them.</a>
+        You have 4 notes. <a href = "#">View them.</a> -->
 
 
         

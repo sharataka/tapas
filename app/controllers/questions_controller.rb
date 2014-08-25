@@ -17,8 +17,13 @@ class QuestionsController < ApplicationController
 			answer.save
 		end
 
-		userstat = Userstat.where(:user_id => current_user.id).first_question
-		userstat.resetCount = userstat.resetCount + 1
+		userstat = Userstat.where(:user_id => current_user.id).first
+		if userstat.resetCount == nil
+			userstat.resetCount = 1
+		else
+			userstat.resetCount = userstat.resetCount + 1
+		end
+
 		userstat.save
 
 	end

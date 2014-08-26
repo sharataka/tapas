@@ -4,6 +4,13 @@ class LessonsController < ApplicationController
 	def index
 		@lessons = Lesson.order("lesson_order asc").paginate(:page => params[:page], :per_page => 10)
 		@topics = Topic.all
+
+		understand = UserUnderstandLesson.where(:user_id => current_user.id)
+		@lesson_understand = []
+		understand.each do |lesson|
+			@lesson_understand << lesson.lesson_id
+		end
+
 	end
 
 	def new
@@ -29,9 +36,14 @@ class LessonsController < ApplicationController
  			@no_next_lesson = true
  		end
 
- 		@related_lessons = Lesson.where("lesson_order > ?", @next_lesson.lesson_order).limit(4)
+ 		@related_lessons = Lesson.where("lesson_order > ?", @next_lesson.lesson_order).order("lesson_order asc").limit(4)
 
- 		@lesson_feedback = LessonFeedback.new
+
+ 		understand = UserUnderstandLesson.where(:user_id => current_user.id)
+		@lesson_understand = []
+		understand.each do |lesson|
+			@lesson_understand << lesson.lesson_id
+		end
 	end
 
 	def edit

@@ -4,6 +4,24 @@ class LessonFeedbacksController < ApplicationController
 		@lesson_feedback = LessonFeedback.new
 	end
 
+
+	# Save when a user understands a lesson
+	def understand_lesson
+		lesson_id = params[:lesson_id]
+		user_id = params[:user_id]
+		
+		# only save if the 2 user id's match
+		if current_user.id == user_id.to_i
+			@understand = UserUnderstandLesson.new(:lesson_id => lesson_id, :user_id => current_user.id)
+			if @understand.save
+			else
+			end
+		end
+		render :nothing => true
+	end
+
+
+	# Save user's feedback on a lesson video
 	def custom_feedback
 		lesson_id = params[:lesson_id]
 		feedback = params[:feedback]

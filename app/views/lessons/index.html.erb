@@ -30,7 +30,11 @@
                                 <a href = "/lessons/<%= lesson.id %>">
                                     <%= lesson.title %>
                                 </a>    
-                                 <!-- &nbsp; <span class="glyphicon glyphicon-ok"> -->
+                                
+                                <!-- Check whether student has watched the video -->
+                                <% if @lesson_understand.include? lesson.id %>
+                                    <span class="glyphicon glyphicon-ok">
+                                <% end %>
                              </h3>
                             
                             <p>

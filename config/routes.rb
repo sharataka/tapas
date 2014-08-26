@@ -32,6 +32,10 @@ Tapas::Application.routes.draw do
   # Lesson feedback
   match "/lesson_feedback/lesson/:lesson_id/feedback/:feedback" => "lesson_feedbacks#custom_feedback"
 
+
+  # User understands lesson
+  match "/understand_lesson/lesson/:lesson_id/user/:user_id" => "lesson_feedbacks#understand_lesson"
+
   match "/resetforadmin" => "questions#adminreset"
 
   # The priority is based upon order of creation:

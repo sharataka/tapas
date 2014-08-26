@@ -125,6 +125,12 @@ class QuestionsController < ApplicationController
 			# No answers to review because all Unanswered
 		end
 
+		understand = UserUnderstandLesson.where(:user_id => current_user.id)
+		@lesson_understand = []
+		understand.each do |lesson|
+			@lesson_understand << lesson.lesson_id
+		end
+
 	end
 
 	def new

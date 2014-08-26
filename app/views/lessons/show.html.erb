@@ -1,6 +1,12 @@
 <script>
-    function clearContents() {
+    function clearContents_feedback() {
         document.getElementById("feedback_module").innerHTML = "Thanks for your feedback! We appreciate you taking the time to leave us feedback, and we're doing our best to improve our content.";
+    }
+</script>
+
+<script>
+    function clearContents_understand() {
+        document.getElementById("understand_lesson_module").innerHTML = '<p class = "text-center"><input type="button" class="btn btn-success disabled" id = "understand_button" onclick="understand_lesson()" value = "Lesson understood"></p>';
     }
 </script>
 
@@ -12,10 +18,25 @@
         var lesson_id = <%= @lesson.id %>
         
         // clear contents of div
-        clearContents();
+        clearContents_feedback();
 
         // get request
         $.get("/lesson_feedback/lesson/" + lesson_id + "/feedback/" + feedback + "",function(data,status){
+        });
+
+    }
+
+
+    function understand_lesson(){
+
+        var lesson_id = <%= @lesson.id %>
+        var user_id = <%= @current_user.id %>
+
+        // replace
+        clearContents_understand();
+
+        // get request
+        $.get("/understand_lesson/lesson/" + lesson_id + "/user/" + user_id + "",function(data,status){
         });
 
     }
@@ -86,13 +107,26 @@
 
 
             <div class="col-md-4">
-                <!--
-                <p class = "text-center">
                 
-                    <button type="button" class="btn btn-success" id = "understand_button" onclick="myFunc(<%= @lesson.id %>)" >I Understand this Lesson</button>
-                </p>
+                
+
+                
+                
+                <div id = "understand_lesson_module">
+                    <p class = "text-center">
+                    
+                        <% if @lesson_understand.include? @lesson.id %>
+                            <input type="button" class="btn btn-success disabled" id = "understand_button" onclick="understand_lesson()" value = "Lesson Understood">
+                        <% else %>
+                            <input type="button" class="btn btn-success" id = "understand_button" onclick="understand_lesson()" value = "I Understand this Lesson">
+                        <% end %>
+                    
+                    </p>
+                </div>
+
+                
                 <hr>
-                -->
+                
                 
                 
 

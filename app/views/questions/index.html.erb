@@ -21,7 +21,11 @@
             <p>
                 <a href = "/lessons/<%= lesson.id %>"><%= lesson.title %></a>
                 &nbsp;<small><%= lesson.length %></small>
-                <!-- &nbsp;<span class="glyphicon glyphicon-ok"></span> -->
+               
+               <!-- Did student understand lesson? -->
+               <% if @lesson_understand.include? lesson.id %>
+                    <span class="glyphicon glyphicon-ok">
+                <% end %>
             </p>
 
         <% end %>

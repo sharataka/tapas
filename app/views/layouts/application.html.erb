@@ -5,6 +5,17 @@
     	Tapas <%= yield(:title) %>
   	</title>
 	<%= stylesheet_link_tag    "application", :media => "all" %>
+
+	<style>
+	.btn-xlarge {
+    padding: 18px 28px;
+    font-size: 22px;
+    line-height: normal;
+    -webkit-border-radius: 8px;
+       -moz-border-radius: 8px;
+            border-radius: 8px;
+    }
+    </style>
 	<%= javascript_include_tag "application" %>
 	<%= csrf_meta_tags %>
 
@@ -68,9 +79,27 @@
 
 <div class="container" style = "margin-top:60px";>
 
-<%= yield %>
+	<%= yield %>
+
+<!-- Beginning of footer -->
+<hr>
+	<div class = "row">
+		<div class="col-md-12">
+			<p class = "text-center">
+				<a href = "/about">About us</a>
+			</p>
+		</div>
+		<!-- end of span12 -->
+
+	</div>
+	<!-- end of row in footer -->
+
 
 </div>
+<!-- end of container -->
+
+
+
 
 </body>
 </html>

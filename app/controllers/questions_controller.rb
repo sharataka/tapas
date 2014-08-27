@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-	before_filter :user_signed_in, :except => [:landing_page]
+	before_filter :user_signed_in, :except => [:landing_page, :about]
 	before_filter :is_admin, :only => [:new, :create, :edit, :update, :admin]
 
 	def adminreset
@@ -34,6 +34,9 @@ class QuestionsController < ApplicationController
 			redirect_to "/dashboard"
 		end
 
+	end
+
+	def about
 	end
 
 	def admin

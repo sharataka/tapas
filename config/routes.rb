@@ -10,7 +10,14 @@ Tapas::Application.routes.draw do
 
 
   root :to => "questions#landing_page" 
+
+  # STATIC PAGES
+
+  # Dashboard
   match "/dashboard" => "questions#index"
+
+  # About us
+  match "/about"     => "questions#about"
 
   devise_for :users
   match "/review/session/:session_id/answers/:question_id" => "questions#review_answer"

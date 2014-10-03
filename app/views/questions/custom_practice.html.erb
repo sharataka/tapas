@@ -8,7 +8,7 @@
         <% if @error_message == "yes" %>
             <div class="well">
                 <center>
-                    <%= @message %>   
+                    <%= @message %>
                 </center>
             </div>
         <% end %>
@@ -24,6 +24,9 @@
 <p>
 
 <form action="/decide_start_session" method="get">
+
+<!-- List all subjects -->
+
 <div class="row">
  
     <div class="col-md-2">
@@ -34,18 +37,23 @@
 
     <div class="col-md-2">
 	    
-        <% @topics.each do |topic| %>
+        
             <p>
-                <label>
-                    <input type="checkbox" name = "subject[]" value = "<%= topic.topic_slug %>" checked> <%= topic.name %>
-                </label>
+
+                <select name = "subject">
+                    <% @topics.each do |topic| %>
+                        <option value = "<%= topic.topic_slug %>"> <%= topic.name %></option>
+                    <% end %>
+                </select>
             </p>
-        <% end %>
+        
 
 	</div>
 
 
-	</div>
+</div>
+
+<!-- End of listing all subjects -->
 
 <p>
 
@@ -60,20 +68,15 @@
     <!-- First column -->
     <div class="col-md-2">
 	    <p>
-    	<label>
-    		<input type="radio" name = "questionpool" value = "Unanswered" checked> Unanswered
-    	</label>
-		</p>
 
-	    <p>
-    	<label>
-    		<input type="radio" name = "questionpool" value = "Incorrect"> Incorrect
-    	</label>
-    </p>
-    <p>
-        <label>
-            <input type="radio" name = "questionpool" value = "Correct"> Correct
-        </label>
+            <select name = "questionpool">
+                <option value = "Unanswered">Unanswered</option>
+                <option value = "Incorrect">Incorrect</option>
+                <option value = "Correct">Correct</option>
+
+             </select>
+
+
 		</p>
 	</div>
 
@@ -84,23 +87,8 @@
 <p>
 
 <div class="row">
- 
-    <div class="col-md-2">
-        <h4>
-            Number of questions
-        </h4>
-    </div>
 
-    <!-- First column -->
-    <div class="col-md-2">
-    	<select class="form-control" name = "numberQuestions">
-		  <option value = "all">No limit</option>
-		  <option value = "5">5 questions</option>
-		  <option value = "10">10 questions</option>
-		  <option value = "20">20 questions</option>
-		  <option value = "30">30 questions</option>
-		</select>
-	</div>
+
 
 </div>
 

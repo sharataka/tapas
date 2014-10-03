@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-	before_filter :user_signed_in, :except => [:landing_page, :about]
+	before_filter :user_signed_in, :except => [:landing_page, :about, :parsetest]
 	before_filter :is_admin, :only => [:new, :create, :edit, :update, :admin]
 
 	def adminreset
@@ -33,7 +33,6 @@ class QuestionsController < ApplicationController
 		if current_user
 			redirect_to "/dashboard"
 		end
-
 	end
 
 	def about
@@ -59,56 +58,149 @@ class QuestionsController < ApplicationController
 
 	end
 
+	def nextquestion
+		@subject = params[:subject]
+		@question_pool = params[:questionpool]
+		@session = params[:session]
+
+		# Questions answered in this session
+		current_session = Answer.where(:practicesession_id => @session)
+		current_session_questions = []
+		current_session.each do |question|
+			current_session_questions << question.question_id
+		end
+
+		# If user selects correct/incorrect questions
+		if @question_pool == "Correct" || @question_pool == "Incorrect"
+			
+			potential = Answer.where(:topic => @subject, :result => @question_pool, :user_id => current_user.id)
+
+			potential_questions = []
+			potential.each do |question|
+				potential_questions << question.question_id
+			end
+			
+
+			first_question = nil
+			potential_questions.each do |potential_question|
+				if current_session_questions.include?(potential_question)
+				else
+					first_question = potential_question
+				end
+			end
+
+
+			if first_question == nil
+				redirect_to "/review/#{@session}"
+				return
+			else
+				redirect_to "/session/#{@session}/question/#{first_question}/subject/#{@subject}/pool/#{@question_pool}/"
+				return
+			end
+		
+		# Unanswered questions
+		else
+			answered_questions = []
+			all_questions_ids = []
+
+			# Get all questions
+			all_questions = Question.where(:topic_slug => @subject)
+			all_questions.each do |question|
+				all_questions_ids << question.id
+			end
+
+			
+			# Get student's answered questions
+			answered_questions = Answer.where(:topic => @subject, :user_id => current_user.id)
+			answered_questions_ids = []
+			answered_questions.each do |answer|
+				answered_questions_ids << answer.question_id
+			end
+
+			# Get first unanswered question
+			all_questions_ids.each do |potential_question|
+				if answered_questions_ids.include? potential_question
+					redirect_to "/review/#{@session}"
+					return
+				else
+					redirect_to "/session/#{session.id}/question/#{question}/subject/#{subject}/pool/#{question_pool}/"
+					return
+				end
+			end
+
+		end
+	end
+
 	def decide_start_session
 		# if there are enough questions, save session details and redirect to the first question
 		
-		# Save session details
-		session = PracticeSession.new
-		session.question_pool = params[:questionpool]
+		question_pool = params[:questionpool]
+		subject = params[:subject]
+
 		
-		# Include the right number of questions for the session
-		if params[:numberQuestions] == "all"
- 			session.number_of_questions = 10000
- 		else
- 			session.number_of_questions = params[:numberQuestions]
- 		end
- 		session.number_correct = 0
-		session.number_incorrect = 0
-
- 		# Process/parse the subjects
-		session.subjects = params[:subject].inspect
-
-		puts "Subject(s): #{session.subjects}"
-		puts "Question pool: #{session.question_pool}"
-
-		session.user_id = current_user.id
-
-		# Convert subject params into array to retrieve question. Otherwise it's a string
-		subject = Array.new
-		params[:subject].each do |c|
-			subject << c
-		end
-
-		# Retrieve first question
-		first_question = Answer.where(:topic => subject, :result => params[:questionpool]).first
-		if first_question == nil
-			# If there arent enough questions, stay on the same page and show a message prompting to change the filters		
-			redirect_to "/custom_practice/try_again"
-		else			
-			# Save the session
-			session.save
+		# If user selects correct/incorrect questions
+		if question_pool == "Correct" || question_pool == "Incorrect"
 			
-			# Redirect to first question	
-			redirect_to "/session/#{session.id}/question/#{first_question.question_id}"
+			first_question = Answer.where(:topic => subject, :result => question_pool, :user_id => current_user.id).first
+			if first_question == nil
+				redirect_to "/custom_practice/error"
+				return
+			else
+				session = PracticeSession.new
+				session.question_id = first_question.question_id
+				session.save
+				redirect_to "/session/#{session.id}/question/#{first_question.question_id}/subject/#{subject}/pool/#{question_pool}/"
+				return
+			end
+
+		# Unanswered questions
+		else
+			answered_questions = []
+			all_questions_ids = []
+
+			# Get all questions
+			all_questions = Question.where(:topic_slug => subject)
+			all_questions.each do |question|
+				all_questions_ids << question.id
+			end
+			puts all_questions_ids
+
+			
+			# Get student's answered questions
+			answered_questions = Answer.where(:topic => subject, :user_id => current_user.id)
+			answered_questions_ids = []
+			answered_questions.each do |answer|
+				answered_questions_ids << answer.question_id
+			end
+			puts answered_questions_ids
+
+			# Get first unanswered question
+			all_questions_ids.each do |question|
+				if answered_questions_ids.include? question
+				else
+					session = PracticeSession.new
+					session.question_id = question
+					session.save
+					redirect_to "/session/#{session.id}/question/#{question}/subject/#{subject}/pool/#{question_pool}/"
+					return
+					break
+				end
+			end
+
+			@error_message = "You don't have any questions left with these filters!"
+			redirect_to "/custom_practice/error"
+			return
+
 		end
+
 		
+
+
 	end
 
 	def index
 		@questions = Question.all
 		@lessons = Lesson.paginate(:page => params[:page], :per_page => 10)
-
-
 
 		# Get count of questions answered
 		@answers = Answer.where(:user_id => current_user.id, :result => ['Correct', 'Incorrect'])
@@ -161,8 +253,11 @@ class QuestionsController < ApplicationController
 
 	def session_question
  		@question = Question.find(params[:question_id])
+ 		@subject = params[:subject]
+ 		@questionpool = params[:questionpool]
  		@session = params[:session_id]
- 		@order = rand(1..@session.to_i)%5
+ 		
+ 		@order = rand(1..1000)%5
  		if @order == 0
  			@order = 1
  		end
@@ -196,54 +291,42 @@ class QuestionsController < ApplicationController
 
 	def answer
 		@question = Question.find(params[:question_id])
-		session = PracticeSession.find(params[:session_id])
-		@session = params[:session_id]
 		@order = params[:order].to_i
 		@student_response = params[:optionsRadios]
+		@question_pool = params[:questionpool]
+		@subject = params[:subject]
+		@session = params[:session_id]
 		
 		if @student_response == nil
 			@student_response = params[:freeResponseInput]
 		end
-
 		
 		# Did student get question correct?
 		if @question.correct_response == @student_response
 			@result = 'Correct'
-			session.number_correct = session.number_correct + 1
 		else
 			@result = 'Incorrect'
-			session.number_incorrect = session.number_incorrect + 1
 		end
-		session.save
 
 		# Update answer record to reflect student's response
-		answer = Answer.where(:question_id => params[:question_id], :user_id => current_user.id).first
-		answer.result = @result
-		answer.practicesession_id = params[:session_id].to_i
-		answer.studentanswer = @student_response
-		answer.save
-	
-		# Convert subject params into array to retrieve question. Otherwise it's a string
-		subject_string = session.subjects
-		subject_string = subject_string.tr('[]','').tr('""',"").tr(' ','')
-		subject = Array.new
-		subject = subject_string.split(",")
-
-		# Get the next question. For loop is to ensure student hasn't already answered that quesiton in the same session
-		@next_questions = Answer.where(:topic => subject, :result => session.question_pool, :user_id => current_user.id)
-		
-		@next_questions.each do |question|
-			if question.practicesession_id == answer.practicesession_id
-				@next_question = nil
-			else
-				@next_question = Answer.find(question.id)
-			end
-		end
-
-		if @next_question == nil
-			@is_there_next_question = "No"
+		if @question_pool == "Unanswered"
+			answer = Answer.new
+			answer.result = @result
+			answer.title = @question.title
+			answer.difficulty = @question.difficulty
+			answer.topic_userfacing_name = @question.topic
+			answer.studentanswer = @student_response
+			answer.user_id = current_user.id
+			answer.question_id = @question.id
+			answer.topic = @subject
+			answer.practicesession_id = @session
+			answer.save
 		else
-			@next_question = @next_question.question_id
+			# Student answers an already answered question, just update the response
+			answer = Answer.where(:question_id => params[:question_id], :user_id => current_user.id).first
+			answer.result = @result
+			answer.practicesession_id = @session
+			answer.save
 		end
 
 		# Get associated lessons for question
@@ -256,11 +339,22 @@ class QuestionsController < ApplicationController
 
 	end
 
+
 	def review
 		@answers = Answer.where(:user_id => current_user.id, :practicesession_id => params[:session_id].to_i)
+		@question = 
+
 		@session = PracticeSession.find(params[:session_id])
-		@correct = @session.number_correct
-		@incorrect = @session.number_incorrect
+		
+		@correct = 0
+		@incorrect = 0
+		@answers.each do |answer|
+			if answer.result == "Correct"
+				@correct = @correct + 1
+			else
+				@incorrect = @incorrect + 1
+			end
+		end
 		@total = @correct + @incorrect
 		@percent_correct =  ((@correct.to_f/@total.to_f) * 100).to_int
 	end

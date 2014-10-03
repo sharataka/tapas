@@ -141,9 +141,13 @@
                 <% else %>
                     
                     <!-- button: next question -->
-                    <a href = "/session/<%= @session %>/question/<%= @next_question %>" type="button" class="btn btn-success">
-                        Next question
-                    </a>
+                    <form action="/nextquestion" method="get">
+                        <input type = "hidden" name = "questionpool" value ="<%= @question_pool %>">
+                        <input type = "hidden" name = "subject" value ="<%= @subject %>">
+                        <input type = "hidden" name = "session" value ="<%= @session %>">
+                        <%= submit_tag("Next question", class: "btn btn-success") %>
+                    </form>
+
 
                     <p><p>
                     
@@ -238,8 +242,7 @@
         <div class = "row">
             <div class="col-md-12">
                 <h4>Text Explanation</h4>
-                <img src = "http://podcast.iu.edu/upload/IUSEUITS/images/300x300.gif" class="img-rounded" alt="140x140" style="width: 140px; height: 140px;">
-                
+                    <%= @question.text_explanation %>
             </div>
         </div>
 
@@ -250,9 +253,13 @@
                     End session and see results
                 </a>                
                 <% else %>
-                <a href = "/session/<%= @session %>/question/<%= @next_question %>" type="button" class="btn btn-success">
-                    Next question
-                </a>
+                <!-- button: next question -->
+                    <form action="/nextquestion" method="get">
+                        <input type = "hidden" name = "questionpool" value ="<%= @question_pool %>">
+                        <input type = "hidden" name = "subject" value ="<%= @subject %>">
+                        <input type = "hidden" name = "session" value ="<%= @session %>">
+                        <%= submit_tag("Next question", class: "btn btn-success") %>
+                    </form>
                 <% end %>
             </div>
         </div>

@@ -43,7 +43,7 @@
 
                 
                 
-                <%= form_tag("/session/#{@session}/answers/#{@question.id}/order/#{@order}", method: "post") do %>
+                <%= form_tag("/session/#{@session}/answers/#{@question.id}/order/#{@order}/subject/#{@subject}/pool/#{@questionpool}", method: "post") do %>
                
                <% if @question.question_type == "MC" %>
                 <% if @order == 1 %>

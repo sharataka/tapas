@@ -23,14 +23,18 @@ Tapas::Application.routes.draw do
   match "/review/session/:session_id/answers/:question_id" => "questions#review_answer"
   match "/review/all" => "questions#review_all"
   
-  match "/session/:session_id/question/:question_id" => "questions#session_question"
-  match "/session/:session_id/answers/:question_id/order/:order" => "questions#answer"
 
   match "/admin" => "questions#admin"
 
   match "/custom_practice" => "questions#custom_practice"
   match "/custom_practice/:error" => "questions#custom_practice"
+
+
   match "/decide_start_session" => "questions#decide_start_session"
+  match "/nextquestion" => "questions#nextquestion"
+
+  match "/session/:session_id/question/:question_id/subject/:subject/pool/:questionpool" => "questions#session_question"
+  match "/session/:session_id/answers/:question_id/order/:order/subject/:subject/pool/:questionpool" => "questions#answer"
 
   match "/review/:session_id" => "questions#review"
   match "/review/session/:session_id/answers/:question_id" => "questions#review_answer"
@@ -38,7 +42,6 @@ Tapas::Application.routes.draw do
 
   # Lesson feedback
   match "/lesson_feedback/lesson/:lesson_id/feedback/:feedback" => "lesson_feedbacks#custom_feedback"
-
 
   # User understands lesson
   match "/understand_lesson/lesson/:lesson_id/user/:user_id" => "lesson_feedbacks#understand_lesson"

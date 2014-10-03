@@ -109,6 +109,7 @@ class QuestionsController < ApplicationController
 				all_questions_ids << question.id
 			end
 
+			puts "all questions: #{all_questions_ids}"
 			
 			# Get student's answered questions
 			answered_questions = Answer.where(:topic => @subject, :user_id => current_user.id)
@@ -117,16 +118,18 @@ class QuestionsController < ApplicationController
 				answered_questions_ids << answer.question_id
 			end
 
+			puts "answered questions: #{answered_questions_ids}"
+
 			# Get first unanswered question
 			all_questions_ids.each do |potential_question|
 				if answered_questions_ids.include? potential_question
-					redirect_to "/review/#{@session}"
-					return
 				else
-					redirect_to "/session/#{session.id}/question/#{question}/subject/#{subject}/pool/#{question_pool}/"
+					redirect_to "/session/#{@session}/question/#{potential_question}/subject/#{@subject}/pool/#{@question_pool}/"
 					return
 				end
 			end
+			redirect_to "/review/#{@session}"
+			return
 
 		end
 	end

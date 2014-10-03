@@ -179,7 +179,6 @@ class QuestionsController < ApplicationController
 				if answered_questions_ids.include? question
 				else
 					session = PracticeSession.new
-					session.question_id = question
 					session.save
 					redirect_to "/session/#{session.id}/question/#{question}/subject/#{subject}/pool/#{question_pool}/"
 					return

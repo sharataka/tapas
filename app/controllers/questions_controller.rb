@@ -158,7 +158,6 @@ class QuestionsController < ApplicationController
 
 		# Unanswered questions
 		else
-			puts 'unanswered'
 			answered_questions = []
 			all_questions_ids = []
 
@@ -181,11 +180,9 @@ class QuestionsController < ApplicationController
 			# Get first unanswered question
 			all_questions_ids.each do |question|
 				if answered_questions_ids.include? question
-					puts 'no practice session created'
 				else
 					session = PracticeSession.new
 					session.save
-					puts "session id is #{session.id}"
 					redirect_to "/session/#{session.id}/question/#{question}/subject/#{subject}/pool/#{question_pool}/"
 					return
 					break
@@ -193,7 +190,6 @@ class QuestionsController < ApplicationController
 			end
 
 			@error_message = "You don't have any questions left with these filters!"
-			puts 'error message'
 			redirect_to "/custom_practice/error"
 			return
 

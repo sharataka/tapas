@@ -145,7 +145,7 @@ class QuestionsController < ApplicationController
 		if question_pool == "Correct" || question_pool == "Incorrect"
 			
 			first_question = Answer.where(:topic => subject, :result => question_pool, :user_id => current_user.id).first
-			puts first_question.question_id
+			puts "first question id is #{first_question.question_id}"
 			if first_question == nil
 				redirect_to "/custom_practice/error"
 				return

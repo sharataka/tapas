@@ -145,14 +145,15 @@ class QuestionsController < ApplicationController
 		if question_pool == "Correct" || question_pool == "Incorrect"
 			
 			first_question = Answer.where(:topic => subject, :result => question_pool, :user_id => current_user.id).first
+			puts first_question.question_id
 			if first_question == nil
 				redirect_to "/custom_practice/error"
 				return
 			else
-				session = PracticeSession.new
-				session.question_id = first_question.question_id
-				session.save
-				redirect_to "/session/#{session.id}/question/#{first_question.question_id}/subject/#{subject}/pool/#{question_pool}/"
+				practicesession = PracticeSession.new
+				practicesession.question_id = first_question.question_id
+				practicesession.save
+				redirect_to "/session/#{practicesession.id}/question/#{first_question.question_id}/subject/#{subject}/pool/#{question_pool}/"
 				return
 			end
 
